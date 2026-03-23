@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目的地婚礼策划：丽江 × 大理</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Elegant Forest Green & Gold Palette */
+            --bg-color: #0b110e;
+            --surface-color: #121f19;
+            --glass-bg: rgba(26, 46, 37, 0.45);
+            --glass-border: rgba(220, 198, 150, 0.15);
+            --text-primary: #fcf8f2;
+            --text-secondary: #c4cdc8;
+            --accent-gold: #d4af37;
+            --accent-light: #f5dfa8;
+            --accent-glow: rgba(212, 175, 55, 0.2);
+            --danger: #cf6679;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(212,175,55,0.04) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(13,51,38,0.3) 0%, transparent 50%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .serif-text {
+            font-family: 'Noto Serif SC', 'Cormorant Garamond', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Nav */
+        nav {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(11, 17, 14, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        
+        .logo span {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 300px;
+            background: var(--accent-glow);
+            filter: blur(100px);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 16px;
+            background: linear-gradient(180deg, #fff, var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+
+        /* Cards & Layout */
+        .section-title {
+            font-size: 2rem;
+            margin: 60px 0 32px;
+            color: var(--accent-light);
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+        /* Rules Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .rule-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        ul.check-list {
+            list-style: none;
+            margin-top: 16px;
+        }
+        ul.check-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        ul.check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        ul.cross-list li::before {
+            content: '×';
+            color: #cf6679;
+        }
+
+        /* Itinerary Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 24px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-gold), rgba(212,175,55,0.1));
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 64px;
+            margin-bottom: 40px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 6px; left: 16px;
+            width: 18px; height: 18px;
+            background: var(--bg-color);
+            border: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            background: rgba(18, 31, 25, 0.6);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Calculator Table */
+        .calc-wrapper {
+            background: var(--surface-color);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        th {
+            background: rgba(26, 46, 37, 0.8);
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            color: var(--accent-light);
+            font-size: 0.95rem;
+        }
+        td {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        td.amount {
+            font-family: monospace;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-align: right;
+        }
+        .total-row td {
+            background: rgba(212, 175, 55, 0.1);
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            border-bottom: none;
+        }
+        
+        .input-box {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 6px;
+            width: 80px;
+            text-align: right;
+            font-family: monospace;
+            font-size: 1rem;
+        }
+        .input-box:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.2);
+        }
+
+        /* Essential Details */
+        .detail-item {
+            margin-bottom: 24px;
+        }
+        .detail-title {
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                Destination Wedding
+                <span>Lijiang & Dali</span>
+            </a>
+            <div style="font-size: 0.9rem; color: var(--accent-gold);">R & ♥</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>丽江·大理 目的地婚礼</h1>
+            <p>19 位亲友的雪山见证与苍山洱海之旅</p>
+        </section>
+
+        <!-- Guest Rules Section -->
+        <h2 class="section-title">💍 宾客邀请与接待标准</h2>
+        <div class="grid-2">
+            <div class="glass-card rule-card">
+                <div class="badge">👨‍👩‍👧‍👦 家人组 (约 10 人)</div>
+                <h3 class="serif-text">全程全包接待</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;">双方至亲长辈及家人，负责提供最无忧的出行体验。</p>
+                <ul class="check-list">
+                    <li>往返机票 / 高铁票报销</li>
+                    <li>丽江及大理全程高端酒店住宿</li>
+                    <li>全程当地商务车接送</li>
+                    <li>婚礼宴席及每日正餐全包</li>
+                </ul>
+            </div>
+
+            <div class="glass-card rule-card">
+                <div class="badge">🥂 挚友组 (约 6-7 人)</div>
+                <h3 class="serif-text">包住宿与正餐</h3>
+                <p style="color:var(--text-secondary); font-size:0.95rem;">特邀亲密好友（包含伴郎伴娘），机票自理以控制预算。</p>
+                <ul class="check-list">
+                    <li>丽江及大理全程酒店住宿 (尽量安排两人住一间标间)</li>
+                    <li>抵达后的当地交通接驳</li>
+                    <li>婚礼宴席及集体游玩聚餐</li>
+                </ul>
+                <ul class="check-list cross-list" style="margin-top:0;">
+                    <li>大交通（往返机票）需朋友自理</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Itinerary -->
+        <h2 class="section-title">🏔️ 婚礼及旅行行程规划 (预估 5天4晚)</h2>
+        <div class="glass-card">
+            <p style="color:var(--accent-light);">此行程将核心仪式放在丽江（玉龙雪山脚下/古城），后续前往大理（洱海边）进行轻松的After Party和游玩。</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">DAY 1 - 抵达与安顿</div>
+                    <div class="timeline-title">落地丽江，雪山前的接风欢聚</div>
+                    <div class="timeline-desc">
+                        • <strong>交通：</strong> 安排商务中巴在丽江三义机场接机，分批接送家人和朋友。<br>
+                        • <strong>住宿：</strong> 入住丽江高端民宿/度假酒店（推荐：玉龙雪山脚下或束河古镇安静区域）。<br>
+                        • <strong>活动：</strong> 晚上安排一顿不累人的破冰/接风晚宴（丽江特色如腊排骨火锅/黑山羊），让双方亲友熟悉。新人可提早到达准备。
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">DAY 2 - 影像留念与自由活动</div>
+                    <div class="timeline-title">丽江旅拍 / 亲友古城游</div>
+                    <div class="timeline-desc">
+                        • <strong>新人：</strong> 全天进行婚纱照拍摄（雪山、蓝月谷、古城街巷）。<br>
+                        • <strong>亲友：</strong> 安排包车或导游，带长辈游览大研古镇、黑龙潭，或在酒店喝下午茶休息适应高原。<br>
+                        • <strong>晚上：</strong> 婚礼前夕的彩排，以及与伴郎伴娘确定第二天仪式的全部细节。
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">DAY 3 - The Big Day</div>
+                    <div class="timeline-title">目的地雪山草坪婚礼</div>
+                    <div class="timeline-desc">
+                        • <strong>上午：</strong> 新人化妆、First Look、向双方父母敬茶（在酒店庭院）。<br>
+                        • <strong>下午：</strong> 举行户外草坪仪式（以雪山为背景）。宣誓、交换戒指、亲友合影。<br>
+                        • <strong>晚上：</strong> 婚礼晚宴 (Wedding Banquet)。规模小而精（约2桌），布置西式长桌或精致中餐，伴酒会/篝火晚会。
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">DAY 4 - 转场与放松</div>
+                    <div class="timeline-title">前往大理，洱海风光</div>
+                    <div class="timeline-desc">
+                        • <strong>上午：</strong> 包车由丽江前往大理（约2.5小时车程），入住大理洱海边的海景酒店或双廊客栈。<br>
+                        • <strong>下午：</strong> 沿着洱海生态廊道骑行，或乘坐吉普车环海旅拍。极度放松、无行程压力的休闲游。<br>
+                        • <strong>晚上：</strong> 大理古城漫步，体验当地酒吧文化或精酿（朋友们的 After Party）。
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">DAY 5 - 完满返程</div>
+                    <div class="timeline-title">满载回忆，各自返航</div>
+                    <div class="timeline-desc">
+                        • <strong>上午：</strong> 在酒店享用海景早餐，睡到自然醒。<br>
+                        • <strong>下午：</strong> 根据各自的航班/高铁时间，安排送站（大理机场或大理高铁站）。<br>
+                        <em>注：少数不赶时间的朋友可继续在大理/香格里拉延展行程。</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Budget & Logistics -->
+        <h2 class="section-title">🧾 财务明细与预算测算表</h2>
+        <p style="margin-bottom:24px; color:var(--text-secondary);">
+            以下为基于您的需求 <strong>(新人2人 + 家人10人 + 朋友7人 = 19人)</strong> 生成的交互式预估表。您可以输入实际单价，总价会自动更新。
+        </p>
+
+        <div class="calc-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="40%">消费类目 (项目明细)</th>
+                        <th width="15%">数量/人数</th>
+                        <th width="25%">预估单价 (¥)</th>
+                        <th width="20%" style="text-align:right;">总计 (¥)</th>
+                    </tr>
+                </thead>
+                <tbody id="calc-body">
+                    <!-- Javascript will populate this -->
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="3" style="text-align:right;">整场目的地婚礼预估总预算：</td>
+                        <td id="grand-total" style="text-align:right;">¥ 0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Key Considerations -->
+        <h2 class="section-title">📝 避坑与必须考虑的细节</h2>
+        <div class="grid-3">
+            <div class="glass-card">
+                <div class="detail-title">🏔️ 高反与身体状况保障</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    丽江海拔约2400米（雪山更高）。<strong style="color:var(--danger);">长辈极易引起高反。</strong><br><br>
+                    • <strong>细节1：</strong> 抵达第一天绝对不能安排紧凑行程，禁止饮酒，必须休息。<br>
+                    • <strong>细节2：</strong> 提前给家人准备好红景天，并在酒店房间和随行车上备好便携式氧气瓶。<br>
+                    • <strong>细节3：</strong> 如果有高血压/心脏病的老人，建议咨询医生是否适合前往。
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">⛅ 云南的天气与温差</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    云南属于高原气候，“一天有四季”。<br><br>
+                    • <strong>婚礼日服装：</strong> 户外仪式如果遇到风大或降温会非常冷。建议给伴娘准备保暖的披肩，给父母准备得体且保暖的外套。<br>
+                    • <strong>紫外线：</strong> 阳光极其强烈。必须为所有宾客统一准备防晒霜、墨镜或伴手礼中的遮阳伞，以免长辈晒伤。
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">🚐 当地交通物流大考</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    带着近20人的团队跨城（丽江-大理），交通安排最容易出错。<br><br>
+                    • <strong>痛点规划：</strong> 绝对不要指望临时打网约车。一定要提前包一辆 <strong>22座以上的中巴/考斯特</strong>，全程包车连带司机，随时放置行李。<br>
+                    • <strong>统筹负责人：</strong> 新人在当天无暇顾及，必须指定一位靠谱的长辈或朋友担任“保姆车长”，负责清点人数和对接司机。
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">💒 婚礼团队的沟通成本</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    异地办婚礼，最大的风险是货不对板。<br><br>
+                    • <strong>异地执行：</strong> 如果找当地的婚策公司（如丽江本地团队），要在签合同前看他们过往在【同一场地】的真实视频（非精修图）。如果是自己带团队去，则需额外支付工作人员的机酒费用（通常需加2-3万）。<br>
+                    • <strong>备用方案 (Plan B)：</strong> 户外草坪极受天气影响，必须与酒店确认下雨时的室内备用场地，这是硬性条款。
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">🎁 伴手礼与迎宾包 (Welcome Bag)</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    作为主人，宾客大老远飞来，细节的关怀极其加分。<br><br>
+                    • <strong>建议配置：</strong> 在每位宾客入住酒店前，房间内放置一个 Welcome Bag。里面包含：定制的欢迎卡片、行程单、当地特产（鲜花饼/普洱）、<strong style="color:var(--accent-gold);">高反药、氧气瓶、补水面霜、防晒霜</strong>。这能让亲友感受到极高的情绪价值。
+                </div>
+            </div>
+            
+            <div class="glass-card">
+                <div class="detail-title">📸 婚纱照/旅拍的取舍</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    一天拍婚纱，一天行礼，新人会极其疲惫。<br><br>
+                    • <strong>体力管理：</strong> 旅拍（尤其上雪山）非常耗费体力。尽量选择在婚礼前两三天拍摄，给自己留一天休息恢复时间，以免在 Big Day 显疲态。或者直接将当天的纪实摄影和仪式感拉满，淡化摆拍婚纱照的比例。
+                </div>
+            </div>
+        </div>
+        
+        <br><br><br>
+    </div>
+
+    <script>
+        // Data Structure for Budget Items
+        // Family: 10 + Couple: 2 = 12. Friends: 7. Total: 19
+        const budgetItems = [
+            { id: "flights", label: "✈️ 大交通 (机票/高铁)", desc: "家人10人+新人2人往返包销", count: 12, defaultPrice: 2000 },
+            { id: "hotel-lj", label: "🏨 丽江酒店住宿 (3晚)", desc: "19人约需10间房，按3晚平均单间价计算", count: 10, defaultPrice: 2500 }, // Assume 2500 per room for 3 nights (e.g. 800/night)
+            { id: "hotel-dl", label: "🏨 大理海景酒店 (1晚)", desc: "19人约需10间房，按1晚平均单间价计算", count: 10, defaultPrice: 1000 },
+            { id: "wedding", label: "💒 婚礼策划及场地费", desc: "草坪租赁、花艺布置、四大金刚(主持/化妆/摄/录)", count: 1, defaultPrice: 45000 },
+            { id: "banquet", label: "🍽️ 婚礼晚宴及餐饮", desc: "19人约设2桌精致晚宴，含酒水及定制甜品台", count: 2, defaultPrice: 6000 },
+            { id: "food", label: "🍲 全程日常餐饮包销", desc: "其余3天的集体午/晚餐 (按每日人均两餐250算 x3天 x19人)", count: 1, defaultPrice: 15000 },
+            { id: "transport", label: "🚐 当地包车与接驳", desc: "22座以上中巴包车4天带司机，含油路费", count: 1, defaultPrice: 6000 },
+            { id: "photo", label: "📸 婚纱照旅拍套餐", desc: "丽江/大理婚纱旅拍 (如已拍可设为0)", count: 1, defaultPrice: 12800 },
+            { id: "gifts", label: "🎁 伴手礼及应急包", desc: "含防晒、氧气瓶、定制礼盒 (按家庭/房间发放)", count: 10, defaultPrice: 500 }
+        ];
+
+        const tbody = document.getElementById('calc-body');
+        const totalDisplay = document.getElementById('grand-total');
+
+        // Number formatter
+        const formatter = new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 });
+
+        function renderTable() {
+            tbody.innerHTML = '';
+            let grandTotal = 0;
+
+            budgetItems.forEach((item, index) => {
+                const total = item.count * item.defaultPrice;
+                grandTotal += total;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div style="font-weight:600; color:var(--text-primary); margin-bottom:4px;">${item.label}</div>
+                        <div style="font-size:0.85rem; color:var(--text-secondary);">${item.desc}</div>
+                    </td>
+                    <td>${item.count}</td>
+                    <td>
+                        <input type="number" class="input-box" data-index="${index}" value="${item.defaultPrice}" step="100">
+                    </td>
+                    <td class="amount">${formatter.format(total)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            totalDisplay.innerText = formatter.format(grandTotal);
+            attachListeners();
+        }
+
+        function attachListeners() {
+            const inputs = document.querySelectorAll('.input-box');
+            inputs.forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const idx = e.target.getAttribute('data-index');
+                    const val = parseFloat(e.target.value) || 0;
+                    budgetItems[idx].defaultPrice = val;
+                    // re-calculate that specific row and total dynamically
+                    const totalCell = e.target.parentElement.nextElementSibling;
+                    const rowTotal = budgetItems[idx].count * val;
+                    totalCell.innerText = formatter.format(rowTotal);
+                    
+                    updateGrandTotal();
+                });
+            });
+        }
+
+        function updateGrandTotal() {
+            const total = budgetItems.reduce((acc, item) => acc + (item.count * item.defaultPrice), 0);
+            totalDisplay.innerText = formatter.format(total);
+        }
+
+        // Initialize
+        renderTable();
+    </script>
+</body>
+</html>
