@@ -1213,10 +1213,11 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th style="width:120px;">代码 (Ticker)</th>
+                                    <th style="width:100px;">代码 (Ticker)</th>
                                     <th>说明与名称</th>
                                     <th>久期 (Duration)</th>
-                                    <th style="color:#10b981;">近期年化收益 (SEC Yield)</th>
+                                    <th style="color:#10b981;">近期年化 (SEC Yield)</th>
+                                    <th style="color:var(--danger);">风险点提示</th>
                                     <th>投资目的</th>
                                 </tr>
                             </thead>
@@ -1226,6 +1227,7 @@
                                     <td>iShares 0-3 Month Treasury Bond ETF</td>
                                     <td>超短期 (<3月)</td>
                                     <td style="font-weight:700; color:#fff;">~5.15%</td>
+                                    <td style="font-size:12px;">再投资风险：降息后收益会迅速跟跌</td>
                                     <td>美元现金最优利息替代</td>
                                 </tr>
                                 <tr>
@@ -1233,6 +1235,7 @@
                                     <td>SPDR Bloomberg 1-3 Month T-Bill ETF</td>
                                     <td>超短期 (1-3月)</td>
                                     <td style="font-weight:700; color:#fff;">~5.10%</td>
+                                    <td style="font-size:12px;">再投资风险：受短期联储政策直接影响</td>
                                     <td>行业标杆，极低波动</td>
                                 </tr>
                                 <tr>
@@ -1240,13 +1243,15 @@
                                     <td>iShares 1-3 Year Treasury Bond ETF</td>
                                     <td>短期 (1-3年)</td>
                                     <td style="font-weight:700; color:#fff;">~4.60%</td>
-                                    <td>平衡收息与利率波动风险</td>
+                                    <td style="font-size:12px;">轻微利率风险：对1-2年期利率敏感</td>
+                                    <td>平衡收息与波动风险</td>
                                 </tr>
                                 <tr>
                                     <td><span class="ticker-badge ticker-highlight-gold">IEF</span></td>
                                     <td>iShares 7-10 Year Treasury Bond ETF</td>
                                     <td>中期 (7-10年)</td>
                                     <td style="font-weight:700; color:#fff;">~4.25%</td>
+                                    <td style="font-size:12px;">中等利率风险：价格随十年期债息波幅明显</td>
                                     <td>配置核心，博取降息反弹</td>
                                 </tr>
                                 <tr>
@@ -1254,6 +1259,7 @@
                                     <td>iShares 20+ Year Treasury Bond ETF</td>
                                     <td>长期 (20年+)</td>
                                     <td style="font-weight:700; color:#fff;">~4.40%</td>
+                                    <td style="font-size:12px;"><strong style="color:var(--danger);">高久期风险</strong>：利率超预期上升时价格会剧烈回调</td>
                                     <td>危机对冲与降息博弈神器</td>
                                 </tr>
                             </tbody>
