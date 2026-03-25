@@ -445,6 +445,25 @@
             color: var(--text-primary);
             box-shadow: 0 0 20px rgba(16,185,129,0.1);
         }
+
+        /* Ticker Badges */
+        .ticker-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: 700;
+            color: #fff;
+            margin-right: 8px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .ticker-highlight-blue { border-left: 4px solid #3b82f6; }
+        .ticker-highlight-green { border-left: 4px solid #10b981; }
+        .ticker-highlight-gold { border-left: 4px solid #f59e0b; }
         .scenario-param-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1186,6 +1205,57 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- Recommended Tickers Showcase -->
+                <div class="card fade-in" style="grid-column: 1 / -1; border-top: 2px dashed var(--border-glass);">
+                    <div style="font-size:18px; font-weight:700; color:var(--accent-light); margin-bottom:20px;">⭐️ 核心推荐美债 Tickers (ETF 清单)</div>
+                    <div class="data-table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:120px;">代码 (Ticker)</th>
+                                    <th>说明与名称</th>
+                                    <th>久期 (Duration)</th>
+                                    <th>投资属性/目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="ticker-badge ticker-highlight-blue">SGOV</span></td>
+                                    <td>iShares 0-3 Month Treasury Bond ETF</td>
+                                    <td>超短期 (<3月)</td>
+                                    <td>最高流动性，<span style="color:#60a5fa;">美元现金最优利息替代</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="ticker-badge ticker-highlight-blue">BIL</span></td>
+                                    <td>SPDR Bloomberg 1-3 Month T-Bill ETF</td>
+                                    <td>超短期 (1-3月)</td>
+                                    <td>行业标杆，极低波动，赚取美金高利率</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="ticker-badge ticker-highlight-green">SHY</span></td>
+                                    <td>iShares 1-3 Year Treasury Bond ETF</td>
+                                    <td>短期 (1-3年)</td>
+                                    <td>平衡流动性与收益，受短期利率波动影响小</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="ticker-badge ticker-highlight-gold">IEF</span></td>
+                                    <td>iShares 7-10 Year Treasury Bond ETF</td>
+                                    <td>中期 (7-10年)</td>
+                                    <td>资产配置核心，降息预期下的温和反弹武器</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="ticker-badge ticker-highlight-gold">TLT</span></td>
+                                    <td>iShares 20+ Year Treasury Bond ETF</td>
+                                    <td>长期 (20年+)</td>
+                                    <td><span style="color:#f59e0b;">危机对冲神器</span>，降息周期的暴力获利标的</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
             </div>
         </div>
     </section>
