@@ -316,6 +316,39 @@
             align-items: center;
             gap: 8px;
         }
+
+        /* ===== TABS & APP CARDS CSS ===== */
+        .tab-nav { display: flex; gap: 8px; margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); padding-bottom: 0; }
+        .tab-btn { padding: 12px 24px; background: none; border: none; color: var(--text-secondary); font-size: 0.95rem; font-family: 'Noto Serif SC', serif; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s ease; white-space: nowrap; }
+        .tab-btn:hover { color: var(--accent-light); }
+        .tab-btn.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .app-feature-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 28px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .app-feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+        .app-category-tag { display: inline-block; font-size: 0.75rem; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; font-weight: 600; letter-spacing: 0.5px; }
+        .tag-xiaohongshu { background: rgba(255,75,75,0.15); color: #ff7a7a; border: 1px solid rgba(255,75,75,0.3); }
+        .tag-ai { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+        .tag-ux { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+        .tag-data { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+        .scrape-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .scrape-item:last-child { border-bottom: none; }
+        .scrape-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+
+        /* ===== LEFT SIDEBAR TOC ===== */
+        .page-wrapper { display: flex; align-items: flex-start; gap: 0; max-width: 1440px; margin: 0 auto; }
+        .toc-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 72px; height: calc(100vh - 72px); overflow-y: auto; padding: 24px 0 24px 20px; border-right: 1px solid var(--glass-border); scrollbar-width: thin; scrollbar-color: var(--glass-border) transparent; }
+        .toc-sidebar::-webkit-scrollbar { width: 4px; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 2px; }
+        .toc-header { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); font-weight: 600; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--glass-border); }
+        .toc-group { margin-bottom: 20px; }
+        .toc-group-label { font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 6px; padding-left: 2px; }
+        .toc-link { display: block; font-size: 0.82rem; color: var(--text-secondary); text-decoration: none; padding: 5px 8px; border-radius: 6px; border-left: 2px solid transparent; margin-bottom: 2px; transition: all 0.15s ease; line-height: 1.3; }
+        .toc-link:hover { color: var(--accent-light); background: rgba(255,255,255,0.04); }
+        .toc-link.active { color: var(--accent-gold); border-left-color: var(--accent-gold); background: rgba(212,175,55,0.08); }
+        .main-content { flex: 1; min-width: 0; }
+        @media (max-width: 900px) { .toc-sidebar { display: none; } }
     </style>
 </head>
 <body>
@@ -330,15 +363,53 @@
         </div>
     </nav>
 
+
+    <div class="page-wrapper">
+    <!-- ===== LEFT TOC SIDEBAR ===== -->
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <div class="toc-header">目录导览</div>
+        <div class="toc-group" id="toc-wedding">
+            <div class="toc-group-label">💍 婚礼策划</div>
+            <a class="toc-link" href="#sec-guests" onclick="ensureTab('wedding')">宾客邀请标准</a>
+            <a class="toc-link" href="#sec-itinerary" onclick="ensureTab('wedding')">行程规划</a>
+            <a class="toc-link" href="#sec-venue" onclick="ensureTab('wedding')">格乐牧场服务</a>
+            <a class="toc-link" href="#sec-budget" onclick="ensureTab('wedding')">预算测算器</a>
+            <a class="toc-link" href="#sec-mood" onclick="ensureTab('wedding')">灵感与视觉氛围</a>
+            <a class="toc-link" href="#sec-floral" onclick="ensureTab('wedding')">不浪费花艺方案</a>
+            <a class="toc-link" href="#sec-art" onclick="ensureTab('wedding')">艺术互动与情感</a>
+            <a class="toc-link" href="#sec-tips" onclick="ensureTab('wedding')">避坑与必备细节</a>
+        </div>
+        <div class="toc-group" id="toc-app">
+            <div class="toc-group-label">📱 备婚 App</div>
+            <a class="toc-link" href="#sec-xhs" onclick="ensureTab('app')">小红书数据采集</a>
+            <a class="toc-link" href="#sec-app-features" onclick="ensureTab('app')">核心功能设计</a>
+            <a class="toc-link" href="#sec-roadmap" onclick="ensureTab('app')">实现方式构想</a>
+            <a class="toc-link" href="#sec-checklist" onclick="ensureTab('app')">备婚要素清单</a>
+            <a class="toc-link" href="#sec-execution" onclick="ensureTab('app')">执行方案细节</a>
+            <a class="toc-link" href="#sec-invitation" onclick="ensureTab('app')">婚礼请柬生成器</a>
+            <a class="toc-link" href="#sec-miniapp" onclick="ensureTab('app')">小程序筹备要点</a>
+            <a class="toc-link" href="#sec-vendors" onclick="ensureTab('app')">🏆 婚策公司推荐</a>
+        </div>
+    </aside>
+    <div class="main-content">
     <div class="container">
+
         <!-- Hero Section -->
         <section class="hero">
             <h1>丽江·大理 目的地婚礼</h1>
             <p>19 位亲友的格乐牧场见证与苍山洱海 8 日之旅</p>
         </section>
 
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('wedding', this)">💍 婚礼策划</button>
+            <button class="tab-btn" onclick="switchTab('app', this)">📱 备婚App构思</button>
+        </div>
+
+        <div id="tab-wedding" class="tab-content active">
+
         <!-- Guest Rules Section -->
-        <h2 class="section-title">💍 宾客邀请与接待标准</h2>
+        <h2 class="section-title" id="sec-guests">💍 宾客邀请与接待标准</h2>
         <div class="grid-2">
             <div class="glass-card rule-card">
                 <div class="badge">👨‍👩‍👧‍👦 家人组 (约 10 人)</div>
@@ -368,7 +439,7 @@
         </div>
 
         <!-- Itinerary -->
-        <h2 class="section-title">🏔️ 婚礼及旅行行程规划 (预估 8天7晚)</h2>
+        <h2 class="section-title" id="sec-itinerary">🏔️ 婚礼及旅行行程规划 (预估 8天7晚)</h2>
         <div class="glass-card">
             <p style="color:var(--accent-light);">此行程将核心仪式放在周六，让亲友在长假中拥有最完美的社交与放松体验，深度游历丽江与大理。</p>
             
@@ -429,7 +500,7 @@
         </div>
 
         <!-- Budget & Logistics -->
-        <h2 class="section-title">🧾 财务明细与预算测算表</h2>
+        <h2 class="section-title" id="sec-budget">🧾 财务明细与预算测算表</h2>
         <p style="margin-bottom:24px; color:var(--text-secondary);">
             以下为基于您的需求 <strong>(新人2人 + 家人10人 + 朋友7人 = 19人)</strong> 生成的交互式预估表。您可以输入实际单价，总价会自动更新。
         </p>
@@ -457,7 +528,7 @@
         </div>
 
         <!-- Mood & Aesthetics -->
-        <h2 class="section-title">✨ 灵感与视觉氛围元素</h2>
+        <h2 class="section-title" id="sec-mood">✨ 灵感与视觉氛围元素</h2>
         <div class="grid-3" style="margin-bottom: 40px;">
             <div class="glass-card">
                 <div class="detail-title">📸 泡泡机与烟花大片</div>
@@ -509,8 +580,32 @@
             </div>
         </div>
 
+
+        <!-- Sustainable Floral Design -->
+        <h2 class="section-title" id="sec-floral">🌿 不浪费花艺方案：自然的生命延续</h2>
+        <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="glass-card" style="border-top: 2px solid #34d399;">
+                <div class="detail-title">💐 仪式花艺：转场重生</div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                    草坪仪式的路引花、拱门花排提取保留，<strong>由工作人员迅速转移至晚宴营地</strong>，改造为餐桌长条桌花或点心台背景，实现同一物料的二次利用。
+                </div>
+            </div>
+            <div class="glass-card" style="border-top: 2px solid #34d399;">
+                <div class="detail-title">🎁 伴手礼鲜花伴手</div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                    晚宴结束前，设立「鲜花自选台」。提供环保牛皮纸与丝带，由花艺师协助将全场鲜花拆解，<strong>鼓励宾客亲手打包属于自己的一份浪漫带走</strong>。
+                </div>
+            </div>
+            <div class="glass-card" style="border-top: 2px solid #34d399;">
+                <div class="detail-title">🌱 永生花纪念画框</div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                    新人捧花不进行抛捧花环节（或使用备用捧花抛），主捧花由专业机构回收，<strong>进行干花脱水与滴胶处理</strong>，定制成一幅立体的永生花立体画框。
+                </div>
+            </div>
+        </div>
+
         <!-- Artistic & Symbolic Interaction -->
-        <h2 class="section-title">🎨 艺术互动与情感联结</h2>
+        <h2 class="section-title" id="sec-art">🎨 艺术互动与情感联结</h2>
         <div class="grid-3" style="margin-bottom: 40px;">
             <div class="glass-card" style="background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(219,39,119,0.05)); border: 1px solid rgba(236,72,153,0.2); display: flex; flex-direction: column;">
                 <div class="detail-title">✍️ 现场人像捕捉</div>
@@ -547,7 +642,7 @@
         </div>
 
         <!-- Key Considerations -->
-        <h2 class="section-title">📝 避坑与必须考虑的细节</h2>
+        <h2 class="section-title" id="sec-tips">📝 避坑与必须考虑的细节</h2>
         <div class="grid-3">
             <div class="glass-card">
                 <div class="detail-title">🏔️ 高反与身体状况保障</div>
@@ -605,6 +700,343 @@
         
         <br><br><br>
     </div>
+
+    <!-- ===== TAB: 备婚 App 构思 ===== -->
+    <div id="tab-app" class="tab-content">
+
+        <!-- App Vision -->
+        <div class="glass-card" style="border-left: 3px solid var(--danger); margin-bottom: 48px;">
+            <div style="font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--danger); font-weight: 600; margin-bottom: 12px;">APP VISION</div>
+            <h2 class="serif-text" style="font-size: 1.8rem; margin-bottom: 16px;">备婚灵感聚合器</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
+                一款能够持续从<span style="color: #ff7a7a; font-weight: 600;">小红书</span>捕捉婚礼相关真实种草内容，并通过 AI 自动分类、整理、去重，为备婚新人打造个人"婚礼灵感知识库"的轻量化工具。告别信息碎片，让每一条好内容都被精准记录和归档。
+            </p>
+        </div>
+
+        <!-- 小红书数据采集 -->
+        <h2 class="section-title" id="sec-xhs">📝 小红书数据采集：核心话题</h2>
+        <div class="grid-3" style="margin-bottom: 40px;">
+
+            <!-- Card 1: 婚礼蛋糕 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">🎂 婚礼蛋糕</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(250,204,21,0.15);">💡</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">山姆宝改DIY：捕捉"山姆蛋糕改造""平替婚礼蛋糕"等帖子，提炼成本控制与 DIY 技巧。</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#婚礼蛋糕 #裸蛋糕 #无花果蛋糕 #婚礼甜品台 #山姆婚宴</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：价格范围、风格标签（极简/森系/复古）、真实评价与踩坑。</div>
+                </div>
+            </div>
+
+            <!-- Card 2: 婚礼互动创意 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">🎉 婚礼互动创意</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">创意环节合集：聚焦"众筹捧花""宾客游戏""迎宾互动""现场手工"等出圈玩法。</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#婚礼游戏 #婚礼互动 #宾客游戏 #婚礼现场 #仪式感婚礼</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：可行性评分、执行成本、宾客人数适配（小型/中型/大型）</div>
+                </div>
+            </div>
+
+            <!-- Card 3: 婚礼布置风格 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">👗 婚礼布置风格</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">风格拆解：森系、极简、复古法式、中式现代等。自动提取主色调、花艺特征与布置关键词。</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#婚礼布置 #婚礼花艺 #户外婚礼 #草坪婚礼 #森系婚礼</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：花艺花材、主色板（提取图片色彩）、场地类型、预算区间</div>
+                </div>
+            </div>
+
+            <!-- Card 4: 化妆与造型 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">💄 化妆与造型</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#婚礼化妆 #新娘妆 #旅拍妆 #婚礼造型 #化妆踩坑</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：妆风（清冷/甜系/复古）、真实妆前妆后对比、定妆建议、价位</div>
+                </div>
+            </div>
+
+            <!-- Card 5: 婚纱旅拍与摄影 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">📸 婚纱旅拍与摄影</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#旅拍 #纪实婚礼 #婚礼摄影 #婚礼摄像 #旅拍踩坑</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：拍摄机位、风格（胶片/清新/暗调）、后期样片质量、真实报价</div>
+                </div>
+            </div>
+
+            <!-- Card 6: 伴手礼与迎宾包 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-xiaohongshu">小红书关键词</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">🎁 伴手礼与迎宾包</h3>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(59,130,246,0.15);">🔍</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">目标关键词：#婚礼伴手礼 #欢迎礼 #宾客礼品 #婚礼小礼物 #目的地婚礼伴手礼</div>
+                </div>
+                <div class="scrape-item">
+                    <div class="scrape-icon" style="background: rgba(16,185,129,0.15);">📊</div>
+                    <div style="font-size: 0.88rem; color: var(--text-secondary);">抓取维度：单价区间、包装颜值（图片评分）、实用性、定制程度</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心功能设计 -->
+        <h2 class="section-title" id="sec-app-features">⚙️ 核心功能设计</h2>
+        <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-ai">AI 能力</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">🤖 智能分类与摘要</h3>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                    • 采集到帖子后，用 AI 自动提取：核心建议、价格标签、风格标签、踩坑警告<br><br>
+                    • 每条采集内容自动生成一句"干货摘要"提炼原文精华<br><br>
+                    • 相似帖子智能去重与合并，防止反复看同一个内容
+                </div>
+            </div>
+
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-data">数据层</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">📂 个人灵感知识库</h3>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                    • 按「婚礼要素」分类归档（蛋糕/花艺/摄影/互动...）<br><br>
+                    • 每个分类下可创建「想要 ✓」「考虑中 ◎」「已排除 ✗」三个状态<br><br>
+                    • 支持打 Tag、写笔记、加价格备注，建立个性化决策树
+                </div>
+            </div>
+
+            <div class="app-feature-card">
+                <div class="app-category-tag tag-ux">UX 设计</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 16px;">📋 决策看板</h3>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                    • 用可视化看板展示「还没确定」的事项，带 Deadline 提醒<br><br>
+                    • 预算追踪模块：连接到各分类的已确认价格，动态更新总预算<br><br>
+                    • 支持导出为 PDF / 分享链接，方便与婚娘沟通
+                </div>
+            </div>
+        </div>
+
+        <!-- 实现方式构想 -->
+        <h2 class="section-title" id="sec-roadmap">🏗️ 实现方式构想</h2>
+        <div class="grid-2" style="margin-bottom: 40px;">
+            <div class="app-feature-card">
+                <div class="app-category-tag" style="background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3);">技术路径 · 简单版</div>
+                <h3 style="font-size: 1.15rem; color: #6ee7b7; margin-bottom: 16px;">🚀 轻量 MVP 方案</h3>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px;">
+                    <strong>工具栈：</strong> 无代码/低代码，快速验证
+                </div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                    • <strong>数据采集：</strong> 用 Feishu/Notion 手动 + 剪贴板保存，或用浏览器插件（如 Cubox）收藏小红书帖子<br><br>
+                    • <strong>AI 整理：</strong> 把帖子粘贴到 ChatGPT/Gemini，让AI帮你按类别整理和提炼焦点<br><br>
+                    • <strong>展示：</strong> 可以直接用 Notion Database 或飞书多维表格 做成可视化看板
+                </div>
+            </div>
+
+            <div class="app-feature-card">
+                <div class="app-category-tag" style="background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3);">技术路径 · 进阶版</div>
+                <h3 style="font-size: 1.15rem; color: #a78bfa; margin-bottom: 16px;">🚀 自动化产品思路</h3>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px;">
+                    <strong>工具栈：</strong> Python + API + 简单前端
+                </div>
+                <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                    • <strong>数据层：</strong> 接入小红书非官方 API 或用 Puppeteer 爬虫脚本定期抓取目标关键词下的热门帖子<br><br>
+                    • <strong>AI 层：</strong> 将帖子文本传给 Gemini / GPT-4o API，提炼结构化 JSON（类别、标签、价格、评分）<br><br>
+                    • <strong>展示层：</strong> 用 Next.js 或本项目已有的 HTML/JS 风格搭建一个个人婚礼灵感 Dashboard
+                </div>
+            </div>
+        </div>
+
+        <!-- 备婚要素全景清单 -->
+        <h2 class="section-title" id="sec-checklist">✅ 备婚要素全景清单（待收集灵感的维度）</h2>
+        <div class="glass-card" style="margin-bottom: 40px;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;">
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🎂</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚礼蛋糕</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">造型 / 口味 / 平替</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">💐</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚礼花艺</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">捧花 / 桌花 / 拱门</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🎮</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">互动游戏</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">宾客破冰 / 仪式互动</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">👗</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚纱礼服</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">仪式 / 旅拍 / 敬酒款</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">💄</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">化妆造型</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">妆风 / 发型 / 踩坑</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">📸</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">摄影摄像</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">纪实 / 胶片 / 精修</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🎁</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">伴手礼</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">定制 / 实用 / 颜值系</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🌿</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">布置风格</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">森系 / 极简 / 复古</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🎤</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">主持人</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">风格 / 流程设计</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🍽️</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">餐饮选品</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">菜单 / 甜品台 / 下午茶</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🎵</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">音乐背景</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">进场 / 仪式 / 晚宴歌单</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
+                    <div style="font-size: 1.5rem; margin-bottom: 8px;">🏨</div>
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">场地选择</div>
+                    <div style="font-size: 0.78rem; color: var(--text-secondary);">酒店 / 庄园 / 户外营地</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 执行方案细节：小程序筹备 -->
+        <h2 class="section-title" id="sec-execution">📱 执行方案细节</h2>
+        <div id="sec-miniapp"></div>
+        <div class="grid-2" style="margin-bottom: 40px;">
+            <!-- 注册 & 备案流程 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag" style="background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3);">📋 注册 & 备案流程</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 20px;">微信小程序上线步骤</h3>
+                <div style="border-left: 2px solid rgba(59,130,246,0.4); padding-left: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">Step 1 · 注册主体</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">前往 <code style="color: var(--accent-gold); background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;">mp.weixin.qq.com</code> 注册，选择「个人」或「企业」主体。<br><span style="color: var(--danger);">⚠️ 个人主体不可做金融/医疗类服务</span></div>
+                </div>
+                <div style="border-left: 2px solid rgba(59,130,246,0.4); padding-left: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">Step 2 · 填写基本信息</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">完善名称、头像、简介，填写服务类目（如"生活服务 > 婚庆"）。</div>
+                </div>
+                <div style="border-left: 2px solid rgba(212,175,55,0.5); padding-left: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-gold); margin-bottom: 4px;">Step 3 · ICP 网站备案（必须）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">涉及网络服务须在工信部或云服务商（阿里云/腾讯云）完成 ICP 备案。<br>约7-20工作日，需提供域名+运营者身份证</div>
+                </div>
+                <div style="border-left: 2px solid rgba(59,130,246,0.4); padding-left: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">Step 4 · 开发 & 提交审核</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">用微信开发者工具打包上传，提交代码审核，通常1-7工作日。</div>
+                </div>
+                <div style="border-left: 2px solid rgba(16,185,129,0.5); padding-left: 16px;">
+                    <div style="font-weight: 600; color: #6ee7b7; margin-bottom: 4px;">Step 5 · 发布上线</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">审核通过后点击「发布」正式上线，后台查看用户数据与日志。</div>
+                </div>
+            </div>
+
+            <!-- 技术选型 -->
+            <div class="app-feature-card">
+                <div class="app-category-tag" style="background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3);">⚙️ 技术选型</div>
+                <h3 style="font-size: 1.15rem; color: var(--accent-light); margin-bottom: 20px;">推荐技术栈 & 工具</h3>
+                <div style="margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--danger); margin-bottom: 4px;">🔧 官方原生框架（WXML/WXSS/JS）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">上手最稳，兼容性最好，适合简单工具类。</div>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-gold); margin-bottom: 4px;">⚡ 推荐框架（Taro / Uni-app）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">支持"一套代码，多端发布"（小程序+H5+App），适合跨平台工具。</div>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">⚡ 无代码替代</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        • <strong>凡科/MAKA：</strong>快速做 H5 请束页<br>
+                        • <strong>即速/轻流：</strong>快速做宾客表单 & 数据管理
+                    </div>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">☁️ 后端 & 数据</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        • <strong>微信云开发（CloudBase）：</strong>无需服务器，免独立域名备案，强烈推荐<br>
+                        • <strong>替代：</strong>Firebase / Supabase（适合境外访问）
+                    </div>
+                </div>
+                <div style="padding: 12px; background: rgba(250,204,21,0.08); border-radius: 8px; border: 1px solid rgba(250,204,21,0.15);">
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);">💡 <strong>最简路径：</strong>用 Taro + 微信云开发 <span style="color: var(--accent-gold);">起步</span>，快速验证，无需购买服务器。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 预估开发时间 & 成本 -->
+        <h2 class="section-title">⏱️ 预估开发时间 & 成本（个人开发者参考）</h2>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 60px;">
+            <div class="glass-card" style="text-align: center; padding: 28px 16px;">
+                <div style="font-size: 2rem; margin-bottom: 12px;">💻</div>
+                <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">注册 & 备案</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">约10-20工作日</div>
+                <div style="font-size: 0.9rem; color: #6ee7b7; font-weight: 600;">基本免费</div>
+            </div>
+            <div class="glass-card" style="text-align: center; padding: 28px 16px;">
+                <div style="font-size: 2rem; margin-bottom: 12px;">🖥️</div>
+                <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">MVP 开发</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">约2-4周</div>
+                <div style="font-size: 0.9rem; color: #6ee7b7; font-weight: 600;">0元（自己开发）</div>
+            </div>
+            <div class="glass-card" style="text-align: center; padding: 28px 16px;">
+                <div style="font-size: 2rem; margin-bottom: 12px;">☁️</div>
+                <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">云开发套餐</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">微信免费额度够用</div>
+                <div style="font-size: 0.9rem; color: var(--accent-gold); font-weight: 600;">~0-19.9/月</div>
+            </div>
+            <div class="glass-card" style="text-align: center; padding: 28px 16px;">
+                <div style="font-size: 2rem; margin-bottom: 12px;">🤖</div>
+                <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">AI API 调用</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">按量计费</div>
+                <div style="font-size: 0.9rem; color: var(--danger); font-weight: 600;">~几十元/月起</div>
+            </div>
+        </div>
+
+    </div><!-- end tab-app -->
 
     <script>
         // Data Structure for Budget Items
@@ -676,6 +1108,7 @@
             });
         }
 
+        
         function updateGrandTotal() {
             const total = budgetItems.reduce((acc, item) => acc + (item.count * item.defaultPrice), 0);
             totalDisplay.innerText = formatter.format(total);
@@ -683,6 +1116,61 @@
 
         // Initialize
         renderTable();
+
+        // ====== Tab Switching + TOC Sync ======
+        let currentTab = 'wedding';
+
+        function switchTab(tabId, btn) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+            if (btn) btn.classList.add('active');
+            updateTocVisibility(tabId);
+            document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+        }
+
+        function ensureTab(tabId) {
+            if (currentTab !== tabId) {
+                const btn = document.querySelector(`.tab-btn[onclick*="'${tabId}'"]`);
+                if (btn) switchTab(tabId, btn);
+            }
+        }
+
+        function updateTocVisibility(activeTabId) {
+            document.getElementById('toc-wedding').style.opacity = activeTabId === 'wedding' ? '1' : '0.35';
+            document.getElementById('toc-app').style.opacity = activeTabId === 'app' ? '1' : '0.35';
+        }
+
+        // ====== Scroll Spy ======
+        const allSectionIds = [
+            'sec-guests','sec-itinerary','sec-budget','sec-mood','sec-floral','sec-art','sec-tips',
+            'sec-xhs','sec-app-features','sec-roadmap','sec-checklist','sec-execution','sec-invitation','sec-miniapp','sec-vendors'
+        ];
+
+        function onScroll() {
+            let current = '';
+            for (const id of allSectionIds) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+                const rect = el.getBoundingClientRect();
+                if (rect.top <= 120) current = id;
+            }
+            document.querySelectorAll('.toc-link').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === '#' + current) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        updateTocVisibility('wedding');
+        onScroll();
+
     </script>
 </body>
 </html>
