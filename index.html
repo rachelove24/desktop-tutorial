@@ -101,6 +101,32 @@
             border-radius: 50%;
         }
 
+        /* Cold Fireworks Sparkle Animation */
+        .sparkle-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .sparkle {
+            position: absolute;
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            background: #f5dfa8;
+            box-shadow: 0 0 8px 2px rgba(245, 223, 168, 0.8), 0 0 16px 4px rgba(212, 175, 55, 0.4);
+            opacity: 0;
+            animation: sparkleFall 4s linear infinite;
+        }
+        @keyframes sparkleFall {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.3); }
+            10% { opacity: 1; transform: translateY(20px) scale(1); }
+            70% { opacity: 0.8; transform: translateY(180px) scale(0.7); }
+            100% { opacity: 0; transform: translateY(260px) scale(0.2); }
+        }
+        .sparkle.s2 { animation-duration: 3.2s; background: #fff; box-shadow: 0 0 6px 2px rgba(255,255,255,0.7), 0 0 14px 4px rgba(245,223,168,0.5); }
+        .sparkle.s3 { animation-duration: 5s; width: 2px; height: 2px; }
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 300;
@@ -1070,6 +1096,136 @@
             .share-bar { flex-direction: column; }
         }
 
+        /* ===== Inspiration System ===== */
+        .inspo-filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .inspo-filter-btn {
+            padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; cursor: pointer;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary); transition: all 0.2s ease; font-family: inherit;
+        }
+        .inspo-filter-btn:hover { border-color: var(--accent-gold); color: var(--accent-light); }
+        .inspo-filter-btn.active { background: rgba(212,175,55,0.15); border-color: var(--accent-gold); color: var(--accent-gold); font-weight: 600; }
+
+        .inspo-cat {
+            background: var(--surface-color); border: 1px solid var(--glass-border);
+            border-radius: 14px; margin-bottom: 16px; overflow: hidden;
+        }
+        .inspo-cat-header {
+            display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+            cursor: pointer; transition: background 0.2s ease; user-select: none;
+        }
+        .inspo-cat-header:hover { background: rgba(255,255,255,0.03); }
+        .inspo-cat-emoji { font-size: 1.4rem; }
+        .inspo-cat-name { font-weight: 600; color: var(--accent-light); font-size: 0.95rem; flex: 1; }
+        .inspo-cat-count {
+            font-size: 0.75rem; padding: 2px 10px; border-radius: 12px;
+            background: rgba(255,255,255,0.06); color: var(--text-secondary);
+        }
+        .inspo-cat-arrow { color: var(--text-secondary); font-size: 0.8rem; transition: transform 0.2s ease; }
+        .inspo-cat.open .inspo-cat-arrow { transform: rotate(90deg); }
+        .inspo-cat-add {
+            padding: 4px 12px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;
+            background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3);
+            color: var(--accent-gold); transition: all 0.2s ease; font-family: inherit;
+        }
+        .inspo-cat-add:hover { background: rgba(212,175,55,0.2); }
+        .inspo-cat-body { display: none; padding: 0 20px 16px; }
+        .inspo-cat.open .inspo-cat-body { display: block; }
+        .inspo-empty-hint { text-align: center; padding: 20px; color: rgba(255,255,255,0.25); font-size: 0.85rem; }
+
+        .inspo-item {
+            display: flex; gap: 14px; padding: 14px; margin-bottom: 10px;
+            border-radius: 10px; border-left: 3px solid transparent;
+            background: rgba(255,255,255,0.02); transition: all 0.2s ease; align-items: flex-start;
+        }
+        .inspo-item:hover { background: rgba(255,255,255,0.04); }
+        .inspo-item.st-want { border-left-color: #34d399; }
+        .inspo-item.st-considering { border-left-color: #d4af37; }
+        .inspo-item.st-excluded { border-left-color: #cf6679; opacity: 0.6; }
+        .inspo-item.st-confirmed { border-left-color: #f5dfa8; background: rgba(245,223,168,0.04); }
+        .inspo-item-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+        .inspo-item-body { flex: 1; min-width: 0; }
+        .inspo-item-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+        .inspo-item-title { font-weight: 600; color: var(--text-primary); font-size: 0.92rem; }
+        .inspo-status-chip {
+            font-size: 0.68rem; padding: 2px 8px; border-radius: 10px; font-weight: 600;
+            display: inline-block; line-height: 1.4;
+        }
+        .chip-want { background: rgba(52,211,153,0.15); color: #34d399; }
+        .chip-considering { background: rgba(212,175,55,0.15); color: #d4af37; }
+        .chip-excluded { background: rgba(207,102,121,0.15); color: #cf6679; }
+        .chip-confirmed { background: rgba(245,223,168,0.2); color: #f5dfa8; }
+        .inspo-item-price { font-family: monospace; color: var(--accent-gold); font-size: 0.88rem; }
+        .inspo-item-notes { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+        .inspo-item-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+        .inspo-tag {
+            font-size: 0.68rem; padding: 1px 7px; border-radius: 6px;
+            background: rgba(255,255,255,0.06); color: var(--text-secondary);
+        }
+        .inspo-item-actions {
+            display: flex; gap: 6px; flex-shrink: 0; align-items: flex-start; margin-top: 2px;
+        }
+        .inspo-act-btn {
+            width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);
+            background: transparent; color: var(--text-secondary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 0.78rem;
+            transition: all 0.15s ease;
+        }
+        .inspo-act-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* Inspiration Modal */
+        .inspo-modal {
+            position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.6);
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); padding: 20px;
+        }
+        .inspo-modal-content {
+            max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto;
+        }
+
+        /* Dashboard */
+        .dash-progress {
+            height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden;
+        }
+        .dash-progress-fill {
+            height: 100%; border-radius: 3px; transition: width 0.4s ease;
+            background: linear-gradient(90deg, var(--accent-gold), #f5dfa8);
+        }
+        .dash-stat-number {
+            font-size: 2.2rem; font-weight: 300; font-family: 'Cormorant Garamond', serif;
+            color: var(--accent-gold); line-height: 1;
+        }
+        .dash-cat-row {
+            display: flex; align-items: center; gap: 14px; padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.88rem;
+        }
+        .dash-cat-row:last-child { border-bottom: none; }
+        .dash-cat-emoji { font-size: 1.2rem; width: 28px; text-align: center; flex-shrink: 0; }
+        .dash-cat-name { width: 72px; flex-shrink: 0; color: var(--accent-light); font-weight: 600; font-size: 0.82rem; }
+        .dash-cat-bar { flex: 1; }
+        .dash-cat-info { width: 180px; flex-shrink: 0; font-size: 0.78rem; color: var(--text-secondary); text-align: right; }
+        .dash-cat-confirmed { color: #34d399; font-weight: 600; font-size: 0.82rem; }
+
+        /* Interactive checklist */
+        .checklist-cell {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px; padding: 20px; text-align: left; cursor: pointer;
+            transition: all 0.2s ease; position: relative;
+        }
+        .checklist-cell:hover { border-color: var(--accent-gold); transform: translateY(-2px); background: rgba(212,175,55,0.04); }
+        .checklist-cell-dot {
+            position: absolute; top: 12px; right: 12px; width: 8px; height: 8px;
+            border-radius: 50%; background: rgba(255,255,255,0.15);
+        }
+        .checklist-cell-dot.dot-confirmed { background: #34d399; box-shadow: 0 0 6px rgba(52,211,153,0.4); }
+        .checklist-cell-dot.dot-active { background: var(--accent-gold); box-shadow: 0 0 6px rgba(212,175,55,0.4); }
+        .checklist-cell-badge {
+            position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px;
+            border-radius: 10px; background: var(--accent-gold); color: #0b110e;
+            font-size: 0.7rem; font-weight: 700; display: flex; align-items: center;
+            justify-content: center; padding: 0 5px;
+        }
+
         /* Vendor cards */
         .vendor-card {
             background: var(--glass-bg);
@@ -1193,6 +1349,8 @@
             <a class="toc-link" href="#sec-floral" onclick="ensureTab('wedding')">不浪费花艺方案</a>
             <a class="toc-link" href="#sec-art" onclick="ensureTab('wedding')">艺术互动与情感</a>
             <a class="toc-link" href="#sec-tips" onclick="ensureTab('wedding')">避坑与必备细节</a>
+            <a class="toc-link" href="#sec-foshan" onclick="ensureTab('wedding')">佛山回门宴策划</a>
+            <a class="toc-link" href="#sec-packlist" onclick="ensureTab('wedding')">备婚物品清单</a>
         </div>
         <div class="toc-group" id="toc-app">
             <div class="toc-group-label">&#128241; 备婚 App</div>
@@ -1200,6 +1358,8 @@
             <a class="toc-link" href="#sec-app-features" onclick="ensureTab('app')">核心功能设计</a>
             <a class="toc-link" href="#sec-roadmap" onclick="ensureTab('app')">实现方式构想</a>
             <a class="toc-link" href="#sec-checklist" onclick="ensureTab('app')">备婚要素清单</a>
+            <a class="toc-link" href="#sec-dashboard" onclick="ensureTab('app')">决策看板</a>
+            <a class="toc-link" href="#sec-inspo-board" onclick="ensureTab('app')">灵感收藏板</a>
             <a class="toc-link" href="#sec-execution" onclick="ensureTab('app')">执行方案细节</a>
             <a class="toc-link" href="#sec-invitation" onclick="ensureTab('app')">婚礼请柬生成器</a>
             <a class="toc-link" href="#sec-photo-invite" onclick="ensureTab('app')">动态婚纱照请柬</a>
@@ -1212,6 +1372,7 @@
 
         <!-- Hero Section -->
         <section class="hero">
+            <div class="sparkle-layer" id="sparkle-layer"></div>
             <h1>丽江 &middot; 大理 目的地婚礼</h1>
             <p>19 位亲友的格乐牧场见证与苍山洱海 8 日之旅</p>
             <div class="countdown-wrapper" id="countdown">
@@ -1332,9 +1493,11 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-date">DAY 1 (周四) - 抵达与准备</div>
-                    <div class="timeline-title">新人落地：选衣服 & 试妆</div>
+                    <div class="timeline-title">新人落地：选衣服 & 试妆 & 美甲</div>
                     <div class="timeline-desc">
                         <strong>新人：</strong> 抵达丽江三义机场，接机入住。下午前往婚策工作室选定 Big Day 及旅拍礼服，并进行妆造沟通与试妆。<br>
+                        <strong>&#128140; 美甲提前做：</strong> <strong style="color: var(--accent-gold);">必须今天搞定美甲</strong>（婚礼前 1-2 天做最完美），刚做完容易磕碰，且要留时间适应。建议选裸色/法式/简约款，避免过夸张影响戒指出片。<br>
+                        <strong>&#128144; 当地花店预约：</strong> 顺路去丽江本地花店预定明早的<strong style="color: var(--accent-gold);">众筹捧花/采花站鲜花（50 支约 &#65509;120）</strong>，比婚策报价省 80%。<br>
                         <strong>亲友：</strong> 此日大家尚未抵达或正在途中，新人享受难得的宁静时光。
                     </div>
                 </div>
@@ -1508,6 +1671,116 @@
             </div>
         </div>
 
+        <!-- Cold Fireworks Highlight -->
+        <div class="glass-card" style="margin-bottom: 40px; background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(244,180,86,0.05)); border: 1px solid rgba(212,175,55,0.3); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -30px; right: -30px; font-size: 8rem; opacity: 0.06; pointer-events: none;">&#10024;</div>
+            <div class="badge" style="background: rgba(212,175,55,0.25); color: var(--accent-light);">&#10024; HIGHLIGHT MOMENT</div>
+            <h3 class="serif-text" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent-light);">&#127879; 冷烟花瀑布墙：婚礼最出片瞬间</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px;">
+                银白色火星从空中倾泻如瀑布，是夜场婚礼最具视觉冲击力的环节。一束 30 秒的瀑布墙，能让所有照片直接进入"杂志大片"等级。
+            </p>
+
+            <div class="grid-3" style="gap: 16px; margin-bottom: 20px;">
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(212,175,55,0.15);">
+                    <div style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#128293; 瀑布墙 (Sparkler Waterfall)</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        长 5-10 米的火星瀑布从架子上倾泻而下，新人在前牵手 First Look。<strong style="color: var(--accent-light);">最出片配置</strong>，建议 30-60 秒。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(212,175,55,0.15);">
+                    <div style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127775; 流星雨 / T 台喷射</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        新人入场 / 出场时，地面冷烟花从两侧喷出，形成"光的拱门"。配合 BGM 入场极具仪式感。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(212,175,55,0.15);">
+                    <div style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#9728; 仙女棒互动</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        晚宴中段发给每位宾客一支冷烟花仙女棒，共同点燃合影，全员参与的高光画面。
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid var(--accent-gold);">
+                    <div style="color: var(--accent-gold); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#9201; 最佳时机 (3 个机位)</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; <strong>新人入场</strong> — 走过冷烟花拱门<br>
+                        &bull; <strong>First Look / 拥吻瞬间</strong> — 瀑布墙背景<br>
+                        &bull; <strong>晚宴尾声合影</strong> — 全员仙女棒互动
+                    </div>
+                </div>
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid var(--accent-light);">
+                    <div style="color: var(--accent-light); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#128176; 报价参考</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; 瀑布墙 (5米/30秒)：<strong>&#65509;800 - 1,500</strong><br>
+                        &bull; 流星雨 (双侧 8 支)：<strong>&#65509;600 - 1,200</strong><br>
+                        &bull; 仙女棒 (20 支)：<strong>&#65509;200 - 400</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 14px 16px; background: rgba(207,102,121,0.08); border-radius: 10px; border: 1px solid rgba(207,102,121,0.2); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                &#9888;&#65039; <strong style="color: var(--danger);">高原 + 户外重点提示：</strong>
+                丽江格乐牧场为草坪场地，冷烟花需<strong>提前与场地确认是否允许</strong>（部分自然保护区或干燥季禁燃）。<strong>必须配备灭火器和水桶</strong>，并指定一位工作人员全程值守。摄影师必须提前架好 <strong>1/200 快门 + 高 ISO</strong> 设定才能抓到火星颗粒。
+            </div>
+        </div>
+
+        <!-- Table Cake Highlight -->
+        <div class="glass-card" style="margin-bottom: 40px; background: linear-gradient(135deg, rgba(245,223,168,0.08), rgba(220,170,130,0.04)); border: 1px solid rgba(245,223,168,0.25); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; font-size: 7rem; opacity: 0.06; pointer-events: none;">&#127874;</div>
+            <div class="badge" style="background: rgba(245,223,168,0.2); color: #f5dfa8;">&#127874; TABLE CAKE TREND</div>
+            <h3 class="serif-text" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent-light);">&#127869; 餐桌蛋糕：每桌都是小型甜品舞台</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px;">
+                舍弃传统中央大蛋糕，每张宾客桌都摆一个 6 寸小蛋糕作为中心装饰。仪式感十足、上镜出片、可直接由宾客切食，是 2025 年最受欢迎的目的地婚礼甜品方式。
+            </p>
+
+            <div class="grid-3" style="gap: 16px; margin-bottom: 20px;">
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(245,223,168,0.15);">
+                    <div style="color: #f5dfa8; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127817; 无花果裸蛋糕</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        奶油裸蛋糕配新鲜无花果切片 + 浆果，搭配尤加利叶。<strong style="color: var(--accent-light);">最契合森系 + 雪山调性</strong>，自然呼吸感。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(245,223,168,0.15);">
+                    <div style="color: #f5dfa8; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127827; 浆果鲜花款</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        奶油 + 蓝莓 / 树莓 / 黑加仑混搭，桌花同色系食用花点缀。色彩饱和适合摄影。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(245,223,168,0.15);">
+                    <div style="color: #f5dfa8; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127852; 抹茶 / 焦糖款</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        抹茶慕斯 / 焦糖海盐口味，素雅低调，适合新中式或极简调性。云南本地烘焙坊都能做。
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid #f5dfa8;">
+                    <div style="color: #f5dfa8; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#9989; 配置建议（19 人 / 5 桌）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; 5 个 <strong>6 寸小蛋糕</strong>（每桌 1 个）<br>
+                        &bull; 1 个 <strong>8 寸主蛋糕</strong>（新人切糕仪式用）<br>
+                        &bull; 风味建议至少 <strong>2-3 种</strong>，避免单调
+                    </div>
+                </div>
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid var(--accent-gold);">
+                    <div style="color: var(--accent-gold); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#128176; 报价参考</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; 6 寸裸蛋糕：<strong>&#65509;180 - 320</strong>/个<br>
+                        &bull; 8 寸主蛋糕：<strong>&#65509;380 - 680</strong>/个<br>
+                        &bull; 桌牌 + 蛋糕架：<strong>&#65509;200 - 400</strong>（含5套）
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 14px 16px; background: rgba(212,175,55,0.06); border-radius: 10px; border: 1px solid rgba(212,175,55,0.15); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                &#128161; <strong style="color: var(--accent-gold);">高原温度提示：</strong>
+                丽江日间紫外线强 + 夜间降温，奶油蛋糕<strong>必须冷链运输 + 婚礼前 30 分钟内摆台</strong>。建议选择<strong>植物奶油</strong>（不易融化）或<strong>瑞士蛋白霜</strong>更稳定。婚策方需要确认晚宴营地有冷藏区或保温箱。
+            </div>
+        </div>
+
         <!-- Floral -->
         <h2 class="section-title" id="sec-floral">&#127807; 不浪费花艺方案：自然的生命延续</h2>
         <div class="grid-3" style="margin-bottom: 40px;">
@@ -1528,6 +1801,52 @@
                 <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
                     新人捧花不进行抛捧花环节（或使用备用捧花抛），主捧花由专业机构回收，<strong>进行干花脱水与滴胶处理</strong>，定制成一幅立体的永生花立体画框。
                 </div>
+            </div>
+        </div>
+
+        <!-- Local Florist Tip -->
+        <div class="glass-card" style="margin-bottom: 40px; background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(110,231,183,0.04)); border: 1px solid rgba(52,211,153,0.25); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; font-size: 7rem; opacity: 0.06; pointer-events: none;">&#128144;</div>
+            <div class="badge" style="background: rgba(52,211,153,0.18); color: #34d399; border-color: rgba(52,211,153,0.35);">&#128176; SMART HACK</div>
+            <h3 class="serif-text" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent-light);">&#128144; 当地花店定鲜花：50 支只要 &#65509;120</h3>
+            <p style="color: var(--text-secondary); font-size: 0.93rem; margin-bottom: 16px;">
+                丽江是云南鲜花产地，<strong style="color: #6ee7b7;">本地花店比婚策报价便宜 80%</strong>。仪式用的众筹捧花/采花站/桌花点缀，完全可以自己提前一天去花店订，DAY 1 当天直接顺路领取。
+            </p>
+
+            <div class="grid-2" style="gap: 16px; margin-bottom: 16px;">
+                <div style="padding: 14px 16px; background: rgba(0,0,0,0.2); border-radius: 10px; border-left: 3px solid #34d399;">
+                    <div style="color: #6ee7b7; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#128176; 价格对比（参考）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; <strong>本地花店</strong>：50 支 <strong style="color: #6ee7b7;">&#65509;120 左右</strong><br>
+                        &bull; <strong>婚策方报价</strong>：50 支 &#65509;600-1,000<br>
+                        &bull; <strong>节省</strong>：<strong style="color: var(--accent-gold);">&#65509;500-800</strong>（够买 5 个伴手礼）
+                    </div>
+                </div>
+                <div style="padding: 14px 16px; background: rgba(0,0,0,0.2); border-radius: 10px; border-left: 3px solid var(--accent-gold);">
+                    <div style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127801; 推荐花材</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; <strong>云南野趣感</strong>：龙胆 / 小菊 / 满天星<br>
+                        &bull; <strong>森系仪式风</strong>：尤加利叶 / 银叶菊 / 雏菊<br>
+                        &bull; <strong>避免</strong>：玫瑰（容易烂）/ 百合（花粉重）
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px dashed rgba(255,255,255,0.1); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px;">
+                &#128205; <strong style="color: var(--accent-gold);">推荐花店渠道：</strong>
+                丽江古城周边花店（小红书搜"丽江花店推荐"）/ <strong>斗南花卉市场</strong>（昆明，可让司机绕道带回）/ 海莲花鲜花批发。<strong style="color: var(--accent-light);">提前一天电话或微信预定</strong>，告知数量+花种+取花时间。 DAY 1 抵达后顺路自取，用塑料袋包裹保湿放酒店冰箱/凉爽处即可保存到 DAY 3 婚礼日。
+            </div>
+
+            <div style="padding: 14px 16px; background: rgba(245,223,168,0.08); border-radius: 10px; border: 1px solid rgba(245,223,168,0.2); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                &#128144;&#128141; <strong style="color: #f5dfa8;">小请求加分项 — 麻烦花艺姐姐手编花戒指：</strong>
+                取花时多说一句"<strong style="color: var(--accent-light);">麻烦帮我们编几枚迷你花戒指</strong>"。用细铁丝缠绕小雏菊/满天星，<strong>每枚成本只要 ¥3-8</strong>。
+                <br><br>
+                &#10024; <strong>用法：</strong>
+                &bull; 新人对戒交换前的"<strong>预热花戒</strong>"，旅拍道具<br>
+                &bull; 每位伴娘 1 枚作为感谢小礼物<br>
+                &bull; 长辈/小朋友头花配饰，超级出片<br>
+                <br>
+                &#128161; <strong>建议数量：</strong>5-8 枚（伴娘 + 双方妈妈 + 新人 + 备份），<strong style="color: var(--accent-gold);">总成本不超过 ¥50</strong>。
             </div>
         </div>
 
@@ -1563,9 +1882,75 @@
             </div>
         </div>
 
+        <!-- Instant Photo Highlight -->
+        <div class="glass-card" style="margin-bottom: 40px; background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.06)); border: 1px solid rgba(147,197,253,0.25); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; font-size: 7rem; opacity: 0.06; pointer-events: none;">&#128247;</div>
+            <div class="badge" style="background: rgba(147,197,253,0.2); color: #93c5fd; border-color: rgba(147,197,253,0.3);">&#128247; INSTANT PHOTO BOOTH</div>
+            <h3 class="serif-text" style="font-size: 1.6rem; margin-bottom: 8px; color: var(--accent-light);">&#128247; 即影即有：宾客带得走的回忆</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px;">
+                每位宾客可现场拍照立即打印，照片可贴在签到墙留言、带回家收藏。这是<strong style="color: #93c5fd;">最实用、最讨喜</strong>的互动方式，宾客参与度极高。
+            </p>
+
+            <div class="grid-3" style="gap: 16px; margin-bottom: 20px;">
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(147,197,253,0.15);">
+                    <div style="color: #93c5fd; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#128248; 方案 A：拍立得 (Polaroid)</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        富士 Instax mini / wide 系列。颜色浓郁有胶片感，拍完 90 秒成像。每张相纸约 ¥6-10。<strong style="color: var(--accent-light);">出片质感最好</strong>，适合作为伴手礼。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(147,197,253,0.15);">
+                    <div style="color: #93c5fd; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#128241; 方案 B：手机+便携打印机</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        宾客用自己手机拍，蓝牙连接打印机（佳能 / 富士 Instax Link / 喵喵机）。<strong style="color: var(--accent-light);">可加滤镜定制相框</strong>，相纸成本低 ¥1-3/张。
+                    </div>
+                </div>
+                <div style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(147,197,253,0.15);">
+                    <div style="color: #93c5fd; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">&#127922; 方案 C：婚策方拍照亭</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+                        包租专业 Photo Booth（含相机、灯光、背景墙、道具箱）。<strong style="color: var(--accent-light);">无人值守自动出片</strong>，最省心，半天 ¥1,500-3,500。
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid #93c5fd;">
+                    <div style="color: #93c5fd; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#127919; 玩法升级</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; <strong>留言签到墙</strong>：宾客把照片贴到大相框/麻绳，旁边写祝福<br>
+                        &bull; <strong>双份打印</strong>：一张给宾客带走，一张留作纪念<br>
+                        &bull; <strong>道具箱</strong>：复古墨镜、夸张帽子、小黑板等增加趣味
+                    </div>
+                </div>
+                <div style="padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; border-left: 3px solid var(--accent-gold);">
+                    <div style="color: var(--accent-gold); font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">&#128176; 报价参考（19 人）</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                        &bull; 拍立得机 (租赁/购买)：<strong>&#65509;500 - 1,200</strong><br>
+                        &bull; 相纸 (50 张含双份)：<strong>&#65509;300 - 500</strong><br>
+                        &bull; 签到墙 + 麻绳 + 木夹：<strong>&#65509;150 - 300</strong><br>
+                        &bull; 道具箱 (拍照工具 10 件套)：<strong>&#65509;100 - 200</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 14px 16px; background: rgba(245,158,11,0.06); border-radius: 10px; border: 1px solid rgba(245,158,11,0.15); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
+                &#128161; <strong style="color: var(--accent-gold);">高原电池提示：</strong>
+                丽江夜间气温低 + 海拔高，<strong>拍立得电池续航会缩短 40%</strong>。务必备 2-3 块充满的电池或额外的 5 号 / AA 电池备用。婚策方建议设置一位<strong>"拍照引导员"</strong>负责帮宾客拍合影 + 教学使用。
+            </div>
+        </div>
+
         <!-- Tips -->
         <h2 class="section-title" id="sec-tips">&#128221; 避坑与必须考虑的细节</h2>
         <div class="grid-3">
+            <div class="glass-card" style="border: 1px solid rgba(245,223,168,0.3); background: linear-gradient(135deg, rgba(245,223,168,0.06), rgba(212,175,55,0.03));">
+                <div class="detail-title">&#128091; 爸妈服饰考虑（容易忽略！）</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    <strong style="color: var(--accent-gold);">妈妈礼服：</strong> 避开纯白和象牙白（不抢新娘）。建议<strong style="color: var(--accent-light);">香槟色 / 雾霾蓝 / 豆沙粉 / 墨绿</strong>等中和色。长款连衣裙或两件套显仪式感。<br><br>
+                    <strong style="color: var(--accent-gold);">爸爸服饰：</strong> 西装首选<strong style="color: var(--accent-light);">深灰 / 深蓝</strong>，配色与新郎区分。中山装 / 唐装也是目的地婚礼极受欢迎的选项。<br><br>
+                    <strong style="color: var(--accent-gold);">两家协调：</strong> 提前与对方父母沟通色系，<strong>避免双方妈妈撞色或同款</strong>。建议建一个微信群发参考图共同确认。<br><br>
+                    <strong style="color: var(--danger);">高原降温：</strong> 户外仪式必备<strong>同色系披肩 / 西装马甲</strong>，应对突然降温。备一双<strong>舒适的低跟鞋</strong>给妈妈，草坪不适合高跟。<br><br>
+                    <strong>胸花 + 配饰：</strong> 提前与花艺师确认父母胸花，与捧花同色系。妈妈的耳环/项链不宜过大，避免抢戏。
+                </div>
+            </div>
             <div class="glass-card">
                 <div class="detail-title">&#127956; 高反与身体状况保障</div>
                 <div style="font-size:0.9rem; color:var(--text-secondary);">
@@ -1613,9 +1998,258 @@
                     <strong>体力管理：</strong> 旅拍（尤其上雪山）非常耗费体力。尽量选择在婚礼前两三天拍摄，给自己留一天休息恢复时间，以免在 Big Day 显疲态。
                 </div>
             </div>
+
+            <div class="glass-card" style="border: 1px solid rgba(147,197,253,0.3); background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(139,92,246,0.03));">
+                <div class="detail-title">&#127976; 酒店房间请求（找客服一定要说）</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    入住前 1-2 周联系酒店客服 / 在订单备注里<strong style="color: #93c5fd;">明确提出 3 个要求</strong>：
+                    <br><br>
+                    &bull; <strong style="color: var(--accent-light);">高楼层</strong> — 视野开阔，避开嘈杂<br>
+                    &bull; <strong style="color: var(--accent-light);">有窗户</strong> — 部分酒店内侧无窗户房，自然光对妆造化妆/拍照至关重要<br>
+                    &bull; <strong style="color: var(--accent-light);">有景色</strong> — 雪山/古城/湖景视角，新娘准备日早晨拍照超出片
+                    <br><br>
+                    <strong style="color: var(--accent-gold);">沟通话术：</strong>"我们是来办婚礼的，房间需要做妆造和拍照，麻烦给安排<strong>高楼层有景观的房型</strong>，先谢过！" — <strong>说明用途+礼貌请求</strong>，命中率极高。
+                </div>
+            </div>
+
+            <div class="glass-card" style="border: 1px solid rgba(245,223,168,0.3); background: linear-gradient(135deg, rgba(245,223,168,0.06), rgba(212,175,55,0.03));">
+                <div class="detail-title">&#128722; 提前淘宝囤旅拍服饰</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    旅拍出片量大，光靠工作室提供的礼服太单一。<strong style="color: #f5dfa8;">提前 4-6 周淘宝下单</strong>更划算：
+                    <br><br>
+                    &bull; <strong style="color: var(--accent-light);">2-4 套换装</strong> — 雪山纱裙 / 古城旗袍 / 阿美泽田园裙 / 大理海边白裙<br>
+                    &bull; <strong style="color: var(--accent-light);">方根高跟鞋（必备！）</strong> — 草坪/石板路/雪山栈道行走比尖跟稳得多，建议买 2 双<br>
+                    &bull; <strong style="color: var(--accent-light);">轻便平底鞋</strong> — 转场期间换上，避免脚痛<br>
+                    &bull; <strong>配饰：</strong> 草帽 / 头纱 / 珍珠发箍 / 复古耳环 — 单价 ¥20-80 出片显贵<br>
+                    <br>
+                    &#128161; <strong>关键词：</strong>"<strong style="color: var(--accent-gold);">旅拍裙</strong>"、"<strong style="color: var(--accent-gold);">仙女裙</strong>"、"<strong style="color: var(--accent-gold);">方跟新娘鞋</strong>"。 <strong style="color: var(--danger);">务必提前试穿+预留改邮件时间</strong>，避免临行前到货不合身。
+                </div>
+            </div>
         </div>
 
-        <br><br><br>
+        <!-- 佛山回门宴策划 -->
+        <h2 class="section-title" id="sec-foshan">&#127801; 佛山回门宴：草坪婚礼策划</h2>
+        <div class="glass-card" style="margin-bottom: 24px;">
+            <p style="color:var(--accent-light); margin-bottom: 8px;">回门宴定位：<strong>家乡轻松版庆祝</strong>，邀请未能赴丽江参加目的地婚礼的亲友（尤其长辈），以户外草坪 + 半正式形式举办。</p>
+            <p style="color:var(--text-secondary); font-size: 0.9rem; margin: 0;">
+                目标：<strong style="color: var(--accent-gold);">轻松、舒适、亲友气氛浓</strong>。预算控制在丽江婚礼的 50% 以内，半天即可完成。
+            </p>
+        </div>
+
+        <!-- 场地选择 -->
+        <div class="grid-2" style="margin-bottom: 24px;">
+            <div class="glass-card">
+                <div class="detail-title">&#127968; 推荐草坪场地（佛山周边）</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    <strong style="color: var(--accent-light);">&bull; 顺德均安生态园 / 顺峰山公园</strong> — 大草坪+湖景，环境清雅<br>
+                    <strong style="color: var(--accent-light);">&bull; 南海西樵山度假村</strong> — 独立草坪+酒店一体，省心<br>
+                    <strong style="color: var(--accent-light);">&bull; 三水荷花世界 / 长鹿农庄</strong> — 自然田园风<br>
+                    <strong style="color: var(--accent-light);">&bull; 高明云勇森林公园</strong> — 性价比高，含场地+餐饮<br>
+                    <strong style="color: var(--accent-light);">&bull; 罗浮山度假酒店 (惠州)</strong> — 1.5h车程，高端选项<br><br>
+                    <strong style="color: var(--accent-gold);">参考价：</strong> 场地租赁半天 &#65509;3,000 - 12,000（含基础布置）
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#9925; 佛山天气与季节考量</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary);">
+                    <strong style="color: var(--danger);">湿热是头号挑战。</strong>建议月份：<strong style="color: var(--accent-light);">10月-12月 / 3-4月</strong>（凉爽干燥）。<br><br>
+                    <strong>避开：</strong>
+                    &bull; 5-9月梅雨/台风/酷暑（户外几乎不可行）<br>
+                    &bull; 春节前后（亲友返乡难协调）<br><br>
+                    <strong style="color: var(--accent-gold);">必备：</strong>
+                    &bull; 大型遮阳棚 / 帐篷（防晒+防雨双用）<br>
+                    &bull; 大功率移动空调或工业风扇<br>
+                    &bull; 室内 Plan B 备用场地（必须写进合同）
+                </div>
+            </div>
+        </div>
+
+        <!-- 流程时间表 -->
+        <div class="glass-card" style="margin-bottom: 24px;">
+            <div class="detail-title">&#9201; 半天流程时间表（参考）</div>
+            <div class="timeline" style="margin-top: 24px;">
+                <div class="timeline-item">
+                    <div class="timeline-date">14:00 - 14:30 &middot; 签到</div>
+                    <div class="timeline-title">宾客陆续入场</div>
+                    <div class="timeline-desc">签到台 + 留言墙 + 即影即有照片合影。提供凉茶/果汁/小点心解暑。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">14:30 - 15:30 &middot; 仪式</div>
+                    <div class="timeline-title">草坪轻仪式</div>
+                    <div class="timeline-desc">新人入场 → 父母致辞 → 交杯酒 / 切蛋糕 → 合影。控制在 60 分钟内，避开太阳最毒的时段。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">15:30 - 17:00 &middot; 下午茶 + 互动</div>
+                    <div class="timeline-title">高茶时段 + 拍照</div>
+                    <div class="timeline-desc">英式下午茶 + 甜品台 + 草坪游戏（投壶、巨型积木等）。给宾客自由社交空间。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">17:00 - 19:30 &middot; 晚宴</div>
+                    <div class="timeline-title">围桌粤式酒席 / 自助餐</div>
+                    <div class="timeline-desc">移至室内或加棚晚宴区。粤式 8-10 道菜传统酒席，或西式自助餐+海鲜台。敬酒环节。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">19:30 - 20:30 &middot; 派对</div>
+                    <div class="timeline-title">夜场冷烟花 + 合影</div>
+                    <div class="timeline-desc">冷焰火 + DJ + 全员合影。自然结束，避免长辈过累。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 物品清单 4 大类 -->
+        <h3 style="color: var(--accent-light); font-size: 1.2rem; margin-bottom: 16px; padding-left: 4px;">&#128203; 物品 & 物料清单（4 大类）</h3>
+        <div class="grid-2" style="margin-bottom: 24px;">
+            <div class="glass-card">
+                <div class="detail-title">&#127890; 1. 仪式 + 场地物料</div>
+                <ul class="check-list" style="font-size: 0.88rem;">
+                    <li>草坪拱门（鲜花 / 干花 / 气球）</li>
+                    <li>红毯 / 仪式路引（鲜花球 + 木架）</li>
+                    <li>主桌 + 仪式高桌（蛋糕台 / 香槟塔）</li>
+                    <li>遮阳棚 / 帐篷（含基础灯串）</li>
+                    <li>桌椅租赁（10 桌 × 8 人 = 80 人）</li>
+                    <li>桌花 + 桌牌 + 餐巾环</li>
+                    <li>音响 + 麦克风（无线 ×2）</li>
+                    <li>灯光（仪式补光 + 晚宴氛围灯）</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#128247; 2. 互动 + 拍照物料</div>
+                <ul class="check-list" style="font-size: 0.88rem;">
+                    <li>签到台 + 签名墙 / 签到册</li>
+                    <li>欢迎牌（写有"X & X 婚礼"）</li>
+                    <li>即影即有 / 拍立得 + 相纸</li>
+                    <li>留言墙（带麻绳 + 木夹）</li>
+                    <li>道具箱（墨镜、帽子、小黑板）</li>
+                    <li>草坪游戏（投壶 / 巨型积木 / 飞镖）</li>
+                    <li>泡泡机 + 仙女棒（夜场用）</li>
+                    <li>儿童区物料（涂色本 / 玩具）</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#127869; 3. 餐饮 + 甜品台</div>
+                <ul class="check-list" style="font-size: 0.88rem;">
+                    <li>下午茶台（英式三层架 + 司康/马卡龙）</li>
+                    <li>甜品台（蛋糕 / 慕斯杯 / 水果塔）</li>
+                    <li>欢迎饮料台（凉茶 / 椰水 / 鲜榨果汁）</li>
+                    <li>主蛋糕（切糕仪式用）</li>
+                    <li>晚宴粤式酒席（10 道菜）或自助餐</li>
+                    <li>儿童餐 / 长辈软食选项</li>
+                    <li>香槟 + 红酒 + 啤酒（敬酒用）</li>
+                    <li>定制矿泉水标签</li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#128091; 4. 新人 + 服饰物料</div>
+                <ul class="check-list" style="font-size: 0.88rem;">
+                    <li>新娘草坪礼服（轻便透气，浅色系）</li>
+                    <li>新娘晚宴换装（敬酒服 / 旗袍）</li>
+                    <li>新郎西装（夏季亚麻 / 浅灰）</li>
+                    <li>新人胸花 / 头纱 / 手捧花</li>
+                    <li>父母礼服 + 胸花</li>
+                    <li>伴娘 / 伴郎服饰（统一色系）</li>
+                    <li>舒适草坪鞋（避免高跟陷土）</li>
+                    <li>化妆补妆包 + 防汗定妆喷雾</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 关键考虑 -->
+        <h3 style="color: var(--accent-light); font-size: 1.2rem; margin-bottom: 16px; padding-left: 4px;">&#128221; 关键考虑细节</h3>
+        <div class="grid-3" style="margin-bottom: 60px;">
+            <div class="glass-card">
+                <div class="detail-title">&#128293; 高温防暑必做</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    &bull; 仪式区设遮阳棚，宾客座位避开正午直晒<br>
+                    &bull; 入场口提供<strong style="color: var(--accent-light);">遮阳伞 + 凉扇 + 湿巾</strong><br>
+                    &bull; 全程冰镇饮料 / 冰桶<br>
+                    &bull; 户外驱蚊喷雾 + 蚊香<br>
+                    &bull; 长辈区设单独风扇/空调小帐篷
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#127807; 草坪场地实操</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    &bull; 提前两周确认草坪状态（避开刚浇过水）<br>
+                    &bull; 桌椅下铺<strong style="color: var(--accent-light);">塑料地垫</strong>防陷<br>
+                    &bull; 长辈通道铺木板路或地毯<br>
+                    &bull; 准备移动洗手间（草坪场地多无）<br>
+                    &bull; 提前确认垃圾处理 / 清理责任方
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#127869; 粤式酒席要点</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    &bull; <strong style="color: var(--accent-gold);">必有"九大簋"或类似传统粤菜</strong>：乳猪、白切鸡、蒸鱼<br>
+                    &bull; 与长辈商量是否需要"红双喜"主题装饰<br>
+                    &bull; 敬酒按辈分顺序：父母 → 长辈 → 朋友<br>
+                    &bull; 每桌备茶水 / 利是糖 / 喜烟<br>
+                    &bull; 酒水建议：白酒 + 红酒 + 啤酒 + 凉茶
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#128104;&#8205;&#128105;&#8205;&#128103;&#8205;&#128103; 长辈优先考虑</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    &bull; 长辈座席靠近遮阳区 / 室内入口<br>
+                    &bull; 提供软垫椅子（草坪折叠椅太硬）<br>
+                    &bull; 接送车（部分长辈不方便自驾）<br>
+                    &bull; 备血压计 / 救心丸等应急药<br>
+                    &bull; 流程不超过 5-6 小时，避免疲惫
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#128276; 邀请与流程沟通</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    &bull; 提前 6-8 周发实体请柬给长辈<br>
+                    &bull; 电子请柬给同辈朋友 + 微信群跟进<br>
+                    &bull; 建立"佛山回门宴"专属群答疑<br>
+                    &bull; 提前 1 周确认 RSVP 实际人数<br>
+                    &bull; 当天指定<strong style="color: var(--accent-light);">"接待负责人"</strong>对接长辈
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="detail-title">&#128176; 预算参考（80 人）</div>
+                <div style="font-size:0.88rem; color:var(--text-secondary);">
+                    <strong>简洁版总预算 &asymp; &#65509;6-10万：</strong><br>
+                    &bull; 场地+布置：<strong>&#65509;15,000-30,000</strong><br>
+                    &bull; 餐饮 (10桌×&#65509;3,000)：<strong>&#65509;30,000</strong><br>
+                    &bull; 摄影摄像：<strong>&#65509;5,000-10,000</strong><br>
+                    &bull; 主持+音响：<strong>&#65509;3,000-6,000</strong><br>
+                    &bull; 服饰+化妆：<strong>&#65509;3,000-8,000</strong><br>
+                    &bull; 伴手礼+花艺：<strong>&#65509;5,000-10,000</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 备婚物品清单 -->
+        <h2 class="section-title" id="sec-packlist">&#127890; 备婚准备物品清单</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.92rem;">
+            按类别梳理出门前需要打包准备的物品。可勾选已准备项，添加自定义条目。<strong style="color: var(--accent-gold);">数据自动保存</strong>，方便和伴侣/伴娘分头打包。
+        </p>
+
+        <!-- Summary -->
+        <div class="glass-card" style="text-align: center; padding: 24px; margin-bottom: 24px;">
+            <div id="pack-summary"></div>
+        </div>
+
+        <!-- Categories -->
+        <div id="packlist-container" style="margin-bottom: 24px;"></div>
+
+        <!-- Actions -->
+        <div class="guest-actions" style="margin-bottom: 60px;">
+            <button class="btn-outline" onclick="exportPackListCSV()">&#128196; 导出 CSV 清单</button>
+            <button class="btn-outline" onclick="resetPackList()" style="border-color: rgba(207,102,121,0.3); color: var(--danger);">&#128260; 重置全部</button>
+        </div>
+
+        <br><br>
         </div><!-- end tab-wedding -->
 
         <!-- ===== TAB: 备婚App ===== -->
@@ -1783,66 +2417,74 @@
         <!-- 备婚要素清单 -->
         <h2 class="section-title" id="sec-checklist">&#9989; 备婚要素全景清单</h2>
         <div class="glass-card" style="margin-bottom: 40px;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px;">
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127874;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚礼蛋糕</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">造型 / 口味 / 平替</div>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;">点击任意要素，跳转至对应灵感收藏板 &#8595;</p>
+            <div id="checklist-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px;">
+                <!-- JS renders interactive cells -->
+            </div>
+        </div>
+
+        <!-- 决策看板 -->
+        <h2 class="section-title" id="sec-dashboard">&#128202; 决策看板</h2>
+        <div style="margin-bottom: 40px;">
+            <div class="grid-3" style="margin-bottom: 24px;">
+                <div class="glass-card" style="text-align: center; padding: 24px;">
+                    <div class="dash-stat-number" id="dash-confirmed-count">0</div>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 8px;">已确认 / 12 项</div>
+                    <div class="dash-progress"><div class="dash-progress-fill" id="dash-overall-progress" style="width:0;"></div></div>
                 </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128144;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚礼花艺</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">捧花 / 桌花 / 拱门</div>
+                <div class="glass-card" style="text-align: center; padding: 24px;">
+                    <div class="dash-stat-number" id="dash-budget-spent">&#65509;0</div>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem;">已确认花费</div>
+                    <div style="font-size: 0.8rem; color: var(--accent-gold); margin-top: 4px;" id="dash-budget-total">总预算: &#65509;--</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127918;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">互动游戏</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">宾客破冰 / 仪式互动</div>
+                <div class="glass-card" style="text-align: center; padding: 24px;">
+                    <div class="dash-stat-number" id="dash-days-left">--</div>
+                    <div style="color: var(--text-secondary); font-size: 0.85rem;">距婚礼天数</div>
                 </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128087;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">婚纱礼服</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">仪式 / 旅拍 / 敬酒款</div>
+            </div>
+            <div class="glass-card" style="padding: 20px;" id="dash-category-list">
+                <!-- JS renders category progress rows -->
+            </div>
+        </div>
+
+        <!-- 灵感收藏板 -->
+        <h2 class="section-title" id="sec-inspo-board">&#128161; 备婚灵感收藏板</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 8px; font-size: 0.92rem;">为每个婚礼要素添加灵感，标记状态，确认最终选择。所有数据自动保存。</p>
+        <div class="inspo-filter-bar" id="inspo-filters">
+            <button class="inspo-filter-btn active" onclick="filterInspo('all',this)">全部</button>
+            <button class="inspo-filter-btn" onclick="filterInspo('want',this)">想要</button>
+            <button class="inspo-filter-btn" onclick="filterInspo('considering',this)">考虑中</button>
+            <button class="inspo-filter-btn" onclick="filterInspo('excluded',this)">已排除</button>
+            <button class="inspo-filter-btn" onclick="filterInspo('confirmed',this)">已确认</button>
+        </div>
+        <div id="inspo-board" style="margin-bottom: 40px;">
+            <!-- JS renders 12 category accordions -->
+        </div>
+
+        <!-- Inspiration Modal -->
+        <div id="inspo-modal" class="inspo-modal" style="display:none;">
+            <div class="inspo-modal-content glass-card">
+                <h3 id="inspo-modal-title" style="color: var(--accent-light); margin-bottom: 20px;">添加灵感</h3>
+                <div class="invite-form">
+                    <div><label>标题 *</label><input type="text" class="invite-input" id="inspo-inp-title" placeholder="例：森系捧花方案"></div>
+                    <div><label>表情图标</label><input type="text" class="invite-input" id="inspo-inp-emoji" placeholder="例：&#128144;" maxlength="4"></div>
+                    <div><label>预估价格 (&#65509;)</label><input type="number" class="invite-input" id="inspo-inp-price" placeholder="0" min="0"></div>
+                    <div><label>状态</label>
+                        <select class="invite-input" id="inspo-inp-status">
+                            <option value="want">想要 &#10003;</option>
+                            <option value="considering">考虑中 &#9678;</option>
+                            <option value="excluded">已排除 &#10007;</option>
+                            <option value="confirmed">已确认 &#9733;</option>
+                        </select>
+                    </div>
+                    <div style="grid-column: 1/-1;"><label>标签 (逗号分隔)</label><input type="text" class="invite-input" id="inspo-inp-tags" placeholder="例：森系, DIY, 平替"></div>
+                    <div class="invite-textarea"><label>备注</label><textarea class="invite-input" id="inspo-inp-notes" placeholder="写下你的想法..." style="min-height: 60px;"></textarea></div>
+                    <div style="grid-column: 1/-1;"><label>来源链接</label><input type="text" class="invite-input" id="inspo-inp-source" placeholder="小红书链接或其他来源"></div>
                 </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128132;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">化妆造型</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">妆风 / 发型 / 踩坑</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#128248;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">摄影摄像</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">纪实 / 胶片 / 精修</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127873;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">伴手礼</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">定制 / 实用 / 颜值系</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127807;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">布置风格</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">森系 / 极简 / 复古</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127908;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">主持人</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">风格 / 流程设计</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127869;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">餐饮选品</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">菜单 / 甜品台 / 下午茶</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127925;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">音乐背景</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">进场 / 仪式 / 晚宴歌单</div>
-                </div>
-                <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; text-align: left;">
-                    <div style="font-size: 1.5rem; margin-bottom: 8px;">&#127976;</div>
-                    <div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">场地选择</div>
-                    <div style="font-size: 0.78rem; color: var(--text-secondary);">酒店 / 庄园 / 户外营地</div>
+                <div style="display: flex; gap: 12px; margin-top: 20px;">
+                    <button class="btn-gold" onclick="saveInspoItem()">保存</button>
+                    <button class="btn-outline" onclick="closeInspoModal()">取消</button>
+                    <button class="btn-outline" id="inspo-delete-btn" style="border-color: rgba(207,102,121,0.3); color: var(--danger); display: none;" onclick="deleteInspoItem()">删除</button>
                 </div>
             </div>
         </div>
@@ -2165,6 +2807,11 @@
             { id: "video_wedding", label: "&#128249; 婚礼摄像", desc: "3500 (专业单机位) - 10800 (创始人)", count: 1, defaultPrice: 5500 },
             { id: "makeup", label: "&#128132; 化妆造型", desc: "1800起 - 5380 (根据具体需求浮动)", count: 1, defaultPrice: 3000 },
             { id: "painter", label: "&#127912; 现场人像绘制", desc: "驻场3小时，为宾客现场绘制专属水彩肖像", count: 1, defaultPrice: 2000 },
+            { id: "fireworks", label: "&#127879; 冷烟花瀑布墙", desc: "瀑布墙(30s) + 流星雨双侧喷射 + 20支仙女棒互动包", count: 1, defaultPrice: 2500 },
+            { id: "table_cake", label: "&#127869; 餐桌蛋糕 (Table Cake)", desc: "5 个 6 寸小蛋糕(每桌1个) + 1 个 8 寸主蛋糕 + 蛋糕架配套", count: 1, defaultPrice: 1800 },
+            { id: "instant_photo", label: "&#128247; 即影即有照片", desc: "拍立得机 + 50张相纸(双份打印) + 签到墙 + 道具箱", count: 1, defaultPrice: 1500 },
+            { id: "manicure", label: "&#128140; 新娘美甲 (DAY 1)", desc: "婚礼前 1-2 天做：裸色/法式/简约款，含手部护理", count: 1, defaultPrice: 250 },
+            { id: "local_flowers", label: "&#128144; 当地花店鲜花 (DIY 众筹捧花)", desc: "本地花店 50 支 (龙胆/小菊/满天星)，自取保鲜，省 ¥500+", count: 1, defaultPrice: 120 },
             { id: "banquet", label: "&#9978; 营地晚宴派对", desc: "日落营地单人餐标", count: 20, defaultPrice: 300 },
             { id: "food", label: "&#127858; 8天日常餐饮包销", desc: "除婚礼外的其余集体午/晚正餐", count: 1, defaultPrice: 9600 },
             { id: "transport", label: "&#128656; 当地包车接驳 (3日连包)", desc: "商务中巴 全程包车连轴接送", count: 1, defaultPrice: 3600 },
@@ -2292,8 +2939,8 @@
 
         // ====== Scroll Spy ======
         const allSectionIds = [
-            'sec-guests','sec-guestlist','sec-itinerary','sec-venue','sec-budget','sec-mood','sec-floral','sec-art','sec-tips',
-            'sec-xhs','sec-app-features','sec-roadmap','sec-checklist','sec-execution','sec-invitation','sec-photo-invite','sec-miniapp','sec-vendors'
+            'sec-guests','sec-guestlist','sec-itinerary','sec-venue','sec-budget','sec-mood','sec-floral','sec-art','sec-tips','sec-foshan','sec-packlist',
+            'sec-xhs','sec-app-features','sec-roadmap','sec-checklist','sec-dashboard','sec-inspo-board','sec-execution','sec-invitation','sec-photo-invite','sec-miniapp','sec-vendors'
         ];
 
         function onScroll() {
@@ -2869,6 +3516,429 @@
                 }, 2000);
             });
         }
+
+        // ====== Inspiration System ======
+        var WEDDING_CATEGORIES = [
+            { key: 'cake',     emoji: '\ud83c\udf82', name: '\u5a5a\u793c\u86cb\u7cd5', sub: '\u9020\u578b/\u53e3\u5473/\u5e73\u66ff' },
+            { key: 'floral',   emoji: '\ud83d\udc90', name: '\u5a5a\u793c\u82b1\u827a', sub: '\u6367\u82b1/\u684c\u82b1/\u62f1\u95e8' },
+            { key: 'games',    emoji: '\ud83c\udfae', name: '\u4e92\u52a8\u6e38\u620f', sub: '\u5bbe\u5ba2\u7834\u51b0/\u4eea\u5f0f\u4e92\u52a8' },
+            { key: 'dress',    emoji: '\ud83d\udc57', name: '\u5a5a\u7eb1\u793c\u670d', sub: '\u4eea\u5f0f/\u65c5\u62cd/\u656c\u9152\u6b3e' },
+            { key: 'makeup',   emoji: '\ud83d\udc84', name: '\u5316\u5986\u9020\u578b', sub: '\u5986\u98ce/\u53d1\u578b/\u8e29\u5751' },
+            { key: 'photo',    emoji: '\ud83d\udcf8', name: '\u6444\u5f71\u6444\u50cf', sub: '\u7eaa\u5b9e/\u80f6\u7247/\u7cbe\u4fee' },
+            { key: 'gifts',    emoji: '\ud83c\udf81', name: '\u4f34\u624b\u793c',   sub: '\u5b9a\u5236/\u5b9e\u7528/\u989c\u503c\u7cfb' },
+            { key: 'decor',    emoji: '\ud83c\udf3f', name: '\u5e03\u7f6e\u98ce\u683c', sub: '\u68ee\u7cfb/\u6781\u7b80/\u590d\u53e4' },
+            { key: 'host',     emoji: '\ud83c\udfa4', name: '\u4e3b\u6301\u4eba',   sub: '\u98ce\u683c/\u6d41\u7a0b\u8bbe\u8ba1' },
+            { key: 'catering', emoji: '\ud83c\udf7d', name: '\u9910\u996e\u9009\u54c1', sub: '\u83dc\u5355/\u751c\u54c1\u53f0/\u4e0b\u5348\u8336' },
+            { key: 'music',    emoji: '\ud83c\udfb5', name: '\u97f3\u4e50\u80cc\u666f', sub: '\u8fdb\u573a/\u4eea\u5f0f/\u665a\u5bb4\u6b4c\u5355' },
+            { key: 'venue',    emoji: '\ud83c\udfe8', name: '\u573a\u5730\u9009\u62e9', sub: '\u9152\u5e97/\u5e84\u56ed/\u6237\u5916\u8425\u5730' }
+        ];
+
+        function loadInspoData() {
+            var saved = localStorage.getItem('wedding_inspiration');
+            if (saved) { try { return JSON.parse(saved); } catch(e) {} }
+            var data = { categories: {} };
+            WEDDING_CATEGORIES.forEach(function(c) { data.categories[c.key] = { items: [], confirmedItemId: null, open: false }; });
+            return data;
+        }
+        function saveInspoData() { localStorage.setItem('wedding_inspiration', JSON.stringify(inspoData)); }
+        var inspoData = loadInspoData();
+        var currentFilter = 'all';
+        var modalCtx = { catKey: null, itemId: null };
+
+        function statusChip(status) {
+            var labels = { want: '\u60f3\u8981 \u2713', considering: '\u8003\u8651\u4e2d \u25ce', excluded: '\u5df2\u6392\u9664 \u2717', confirmed: '\u5df2\u786e\u8ba4 \u2605' };
+            return '<span class="inspo-status-chip chip-' + status + '">' + (labels[status] || status) + '</span>';
+        }
+
+        function renderInspoBoard() {
+            var board = document.getElementById('inspo-board');
+            if (!board) return;
+            board.innerHTML = '';
+            WEDDING_CATEGORIES.forEach(function(cat) {
+                var cd = inspoData.categories[cat.key];
+                if (!cd) { cd = { items: [], confirmedItemId: null, open: false }; inspoData.categories[cat.key] = cd; }
+                var visibleItems = cd.items.filter(function(it) { return currentFilter === 'all' || it.status === currentFilter; });
+                var div = document.createElement('div');
+                div.className = 'inspo-cat' + (cd.open ? ' open' : '');
+                div.id = 'inspo-cat-' + cat.key;
+                var itemsHtml = visibleItems.length === 0
+                    ? '<div class="inspo-empty-hint">\u6682\u65e0\u7b26\u5408\u6761\u4ef6\u7684\u7075\u611f\uff0c\u70b9\u51fb"\u6dfb\u52a0\u7075\u611f"\u5f00\u59cb</div>'
+                    : visibleItems.map(function(it) { return renderInspoItem(it, cat.key); }).join('');
+                div.innerHTML =
+                    '<div class="inspo-cat-header" onclick="toggleCategory(\'' + cat.key + '\')">' +
+                        '<span class="inspo-cat-emoji">' + cat.emoji + '</span>' +
+                        '<span class="inspo-cat-name">' + cat.name + '</span>' +
+                        '<span class="inspo-cat-count">' + cd.items.length + ' \u9879</span>' +
+                        '<button class="inspo-cat-add" onclick="event.stopPropagation();openInspoModal(\'' + cat.key + '\',null)">+ \u6dfb\u52a0\u7075\u611f</button>' +
+                        '<span class="inspo-cat-arrow">\u25b6</span>' +
+                    '</div>' +
+                    '<div class="inspo-cat-body">' + itemsHtml + '</div>';
+                board.appendChild(div);
+            });
+        }
+
+        function renderInspoItem(it, catKey) {
+            var icon = it.imageUrl
+                ? '<img src="' + it.imageUrl + '" style="width:42px;height:42px;border-radius:8px;object-fit:cover;">'
+                : (it.emoji || '\ud83d\udcab');
+            var tagsHtml = (it.tags && it.tags.length)
+                ? '<div class="inspo-item-tags">' + it.tags.map(function(t) { return '<span class="inspo-tag">' + t + '</span>'; }).join('') + '</div>'
+                : '';
+            var priceHtml = it.price ? '<span class="inspo-item-price">\u00a5' + it.price + '</span>' : '';
+            var notesHtml = it.notes ? '<div class="inspo-item-notes">' + it.notes + '</div>' : '';
+            var srcHtml = it.source ? '<a href="' + it.source + '" target="_blank" style="font-size:0.75rem;color:var(--accent-gold);text-decoration:none;">\ud83d\udd17 \u6765\u6e90</a>' : '';
+            return '<div class="inspo-item st-' + it.status + '">' +
+                '<div class="inspo-item-icon">' + icon + '</div>' +
+                '<div class="inspo-item-body">' +
+                    '<div class="inspo-item-title-row">' +
+                        '<span class="inspo-item-title">' + (it.title || '\u672a\u547d\u540d') + '</span>' +
+                        statusChip(it.status) + priceHtml + srcHtml +
+                    '</div>' + notesHtml + tagsHtml +
+                '</div>' +
+                '<div class="inspo-item-actions">' +
+                    '<button class="inspo-act-btn" title="\u7f16\u8f91" onclick="openInspoModal(\'' + catKey + '\',\'' + it.id + '\')">\u270e</button>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function toggleCategory(catKey) {
+            inspoData.categories[catKey].open = !inspoData.categories[catKey].open;
+            saveInspoData();
+            renderInspoBoard();
+        }
+
+        function filterInspo(filter, btn) {
+            currentFilter = filter;
+            document.querySelectorAll('.inspo-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            if (btn) btn.classList.add('active');
+            renderInspoBoard();
+        }
+
+        function openInspoModal(catKey, itemId) {
+            modalCtx = { catKey: catKey, itemId: itemId };
+            var item = null;
+            if (itemId) {
+                item = (inspoData.categories[catKey].items || []).find(function(x) { return x.id === itemId; });
+            }
+            document.getElementById('inspo-modal-title').textContent = item ? '\u7f16\u8f91\u7075\u611f' : '\u6dfb\u52a0\u7075\u611f';
+            document.getElementById('inspo-inp-title').value = item ? (item.title || '') : '';
+            document.getElementById('inspo-inp-emoji').value = item ? (item.emoji || '') : '';
+            document.getElementById('inspo-inp-price').value = item ? (item.price || '') : '';
+            document.getElementById('inspo-inp-status').value = item ? item.status : 'want';
+            document.getElementById('inspo-inp-tags').value = item && item.tags ? item.tags.join(', ') : '';
+            document.getElementById('inspo-inp-notes').value = item ? (item.notes || '') : '';
+            document.getElementById('inspo-inp-source').value = item ? (item.source || '') : '';
+            document.getElementById('inspo-delete-btn').style.display = item ? 'inline-flex' : 'none';
+            document.getElementById('inspo-modal').style.display = 'flex';
+        }
+
+        function closeInspoModal() {
+            document.getElementById('inspo-modal').style.display = 'none';
+        }
+
+        function saveInspoItem() {
+            var title = document.getElementById('inspo-inp-title').value.trim();
+            if (!title) { alert('\u8bf7\u586b\u5199\u6807\u9898'); return; }
+            var newStatus = document.getElementById('inspo-inp-status').value;
+            var data = {
+                title: title,
+                emoji: document.getElementById('inspo-inp-emoji').value.trim(),
+                price: parseFloat(document.getElementById('inspo-inp-price').value) || 0,
+                status: newStatus,
+                tags: document.getElementById('inspo-inp-tags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean),
+                notes: document.getElementById('inspo-inp-notes').value.trim(),
+                source: document.getElementById('inspo-inp-source').value.trim()
+            };
+            var cat = inspoData.categories[modalCtx.catKey];
+            if (modalCtx.itemId) {
+                var idx = cat.items.findIndex(function(x) { return x.id === modalCtx.itemId; });
+                if (idx >= 0) cat.items[idx] = Object.assign({}, cat.items[idx], data);
+            } else {
+                data.id = 'item_' + Date.now() + '_' + Math.floor(Math.random()*999);
+                data.createdAt = new Date().toISOString();
+                cat.items.push(data);
+                modalCtx.itemId = data.id;
+            }
+            // Handle confirmed: only one confirmed per category
+            if (newStatus === 'confirmed') {
+                cat.items.forEach(function(it) {
+                    if (it.id !== modalCtx.itemId && it.status === 'confirmed') it.status = 'want';
+                });
+                cat.confirmedItemId = modalCtx.itemId;
+            } else if (cat.confirmedItemId === modalCtx.itemId) {
+                cat.confirmedItemId = null;
+            }
+            cat.open = true;
+            saveInspoData();
+            closeInspoModal();
+            refreshAllInspoViews();
+        }
+
+        function deleteInspoItem() {
+            if (!confirm('\u786e\u5b9a\u5220\u9664\u8fd9\u6761\u7075\u611f\uff1f')) return;
+            var cat = inspoData.categories[modalCtx.catKey];
+            cat.items = cat.items.filter(function(x) { return x.id !== modalCtx.itemId; });
+            if (cat.confirmedItemId === modalCtx.itemId) cat.confirmedItemId = null;
+            saveInspoData();
+            closeInspoModal();
+            refreshAllInspoViews();
+        }
+
+        function renderInteractiveChecklist() {
+            var grid = document.getElementById('checklist-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            WEDDING_CATEGORIES.forEach(function(cat) {
+                var cd = inspoData.categories[cat.key] || { items: [] };
+                var count = cd.items.length;
+                var dotClass = cd.confirmedItemId ? 'dot-confirmed' : (count > 0 ? 'dot-active' : '');
+                var badge = count > 0 ? '<div class="checklist-cell-badge">' + count + '</div>' : '';
+                var cell = document.createElement('div');
+                cell.className = 'checklist-cell';
+                cell.onclick = function() { scrollToCategory(cat.key); };
+                cell.innerHTML =
+                    '<div class="checklist-cell-dot ' + dotClass + '"></div>' + badge +
+                    '<div style="font-size: 1.5rem; margin-bottom: 8px;">' + cat.emoji + '</div>' +
+                    '<div style="font-weight: 600; color: var(--accent-light); margin-bottom: 4px;">' + cat.name + '</div>' +
+                    '<div style="font-size: 0.78rem; color: var(--text-secondary);">' + cat.sub + '</div>';
+                grid.appendChild(cell);
+            });
+        }
+
+        function scrollToCategory(catKey) {
+            inspoData.categories[catKey].open = true;
+            saveInspoData();
+            renderInspoBoard();
+            var el = document.getElementById('inspo-cat-' + catKey);
+            if (el) {
+                document.documentElement.style.scrollBehavior = 'smooth';
+                window.scrollTo(0, el.offsetTop - 80);
+            }
+        }
+
+        function getTotalBudget() {
+            return budgetItems.reduce(function(acc, it) { return acc + (it.count * it.defaultPrice); }, 0);
+        }
+
+        function renderDashboard() {
+            if (!document.getElementById('dash-confirmed-count')) return;
+            var confirmedCount = 0, spent = 0;
+            WEDDING_CATEGORIES.forEach(function(cat) {
+                var cd = inspoData.categories[cat.key];
+                if (cd && cd.confirmedItemId) {
+                    confirmedCount++;
+                    var item = cd.items.find(function(x) { return x.id === cd.confirmedItemId; });
+                    if (item && item.price) spent += item.price;
+                }
+            });
+            document.getElementById('dash-confirmed-count').textContent = confirmedCount;
+            document.getElementById('dash-overall-progress').style.width = (confirmedCount / 12 * 100) + '%';
+            var fmt = new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY', minimumFractionDigits: 0 });
+            document.getElementById('dash-budget-spent').textContent = fmt.format(spent);
+            document.getElementById('dash-budget-total').textContent = '\u603b\u9884\u7b97: ' + fmt.format(getTotalBudget());
+            // Days left
+            var weddingDate = new Date('2026-10-10T15:00:00');
+            var days = Math.max(0, Math.ceil((weddingDate - new Date()) / 86400000));
+            document.getElementById('dash-days-left').textContent = days;
+            // Category rows
+            var list = document.getElementById('dash-category-list');
+            list.innerHTML = '';
+            WEDDING_CATEGORIES.forEach(function(cat) {
+                var cd = inspoData.categories[cat.key] || { items: [], confirmedItemId: null };
+                var counts = { want: 0, considering: 0, excluded: 0, confirmed: 0 };
+                cd.items.forEach(function(it) { if (counts[it.status] !== undefined) counts[it.status]++; });
+                var pct = cd.confirmedItemId ? 100 : (cd.items.length > 0 ? Math.min(80, cd.items.length * 25) : 0);
+                var confirmedItem = cd.confirmedItemId ? cd.items.find(function(x) { return x.id === cd.confirmedItemId; }) : null;
+                var infoHtml = confirmedItem
+                    ? '<span class="dash-cat-confirmed">\u2605 ' + confirmedItem.title + (confirmedItem.price ? ' \u00b7 \u00a5' + confirmedItem.price : '') + '</span>'
+                    : (cd.items.length === 0 ? '\u5c1a\u672a\u6dfb\u52a0' : counts.want + ' \u60f3\u8981 \u00b7 ' + counts.considering + ' \u8003\u8651\u4e2d');
+                var row = document.createElement('div');
+                row.className = 'dash-cat-row';
+                row.innerHTML =
+                    '<span class="dash-cat-emoji">' + cat.emoji + '</span>' +
+                    '<span class="dash-cat-name">' + cat.name + '</span>' +
+                    '<div class="dash-cat-bar"><div class="dash-progress"><div class="dash-progress-fill" style="width:' + pct + '%;' + (confirmedItem ? 'background:linear-gradient(90deg,#34d399,#6ee7b7);' : '') + '"></div></div></div>' +
+                    '<span class="dash-cat-info">' + infoHtml + '</span>';
+                row.style.cursor = 'pointer';
+                row.onclick = function() { scrollToCategory(cat.key); };
+                list.appendChild(row);
+            });
+        }
+
+        function refreshAllInspoViews() {
+            renderInspoBoard();
+            renderInteractiveChecklist();
+            renderDashboard();
+        }
+
+        // Patch existing updateGrandTotal to refresh dashboard
+        var _origUpdateGrandTotal = updateGrandTotal;
+        updateGrandTotal = function() { _origUpdateGrandTotal(); renderDashboard(); };
+
+        refreshAllInspoViews();
+
+        // ====== Packing List ======
+        var PACKLIST_CATEGORIES = [
+            { key: 'couple', name: '\ud83d\udc70 \u65b0\u4eba\u4e2a\u4eba\u7269\u54c1', items: [
+                '\u5a5a\u793c\u793c\u670d (\u4eea\u5f0f\u88c5)', '\u65c5\u62cd\u793c\u670d', '\u656c\u9152\u670d',
+                '\u6dd8\u5b9d\u65c5\u62cd\u6362\u88c5 #1: \u96ea\u5c71\u7eb1\u88d9', '\u6dd8\u5b9d\u65c5\u62cd\u6362\u88c5 #2: \u53e4\u57ce\u65d7\u888d',
+                '\u6dd8\u5b9d\u65c5\u62cd\u6362\u88c5 #3: \u963f\u7f8e\u6cfd\u7530\u56ed\u88d9', '\u6dd8\u5b9d\u65c5\u62cd\u6362\u88c5 #4: \u5927\u7406\u6d77\u8fb9\u767d\u88d9',
+                '\u5a5a\u978b + \u8212\u9002\u5907\u7528\u978b', '\u65b9\u6839\u9ad8\u8ddf\u978b \u00d72 (\u8349\u576a/\u96ea\u5c71\u9632\u9677)',
+                '\u8f7b\u4fbf\u5e73\u5e95\u978b (\u8f6c\u573a\u7528)', '\u9996\u9970 + \u9879\u94fe + \u8033\u73af', '\u5934\u9970/\u5934\u7eb1',
+                '\u914d\u9970 (\u8349\u5e3d/\u53d1\u7b8d/\u590d\u53e4\u8033\u73af)', '\u8d34\u8eab\u8863\u7269 (\u80f8\u8d34/\u6253\u5e95)',
+                '\u5316\u5986\u5305 + \u8865\u5986\u5957\u88c5', '\u4fdd\u6696\u62ab\u80a9 (\u5c71\u533a\u964d\u6e29\u7528)', '\u592a\u9633\u773c\u955c + \u906e\u9633\u5e3d'
+            ]},
+            { key: 'ceremony', name: '\ud83d\udc8d \u4eea\u5f0f\u7269\u54c1', items: [
+                '\u7ed3\u5a5a\u8bc1', '\u6212\u6307 (\u4e3b\u6212 + \u5907\u7528)', '\u8a93\u8a00\u7a3f (\u6253\u5370 + \u624b\u5199\u5907\u4efd)',
+                '\u7236\u6bcd\u5408\u5f71\u6846/\u5bb6\u5ead\u4fe1\u7269', '\u4f34\u90ce\u4f34\u5a18\u670d\u9970\u786e\u8ba4',
+                '\u5a5a\u793c\u73b0\u573a\u7b7e\u5230\u672c + \u7b14', '\u7ea2\u5305 (\u7ed9\u5de5\u4f5c\u4eba\u5458/\u957f\u8f88)'
+            ]},
+            { key: 'travel', name: '\u2708\ufe0f \u65c5\u884c\u5fc5\u9700', items: [
+                '\u8eab\u4efd\u8bc1 + \u673a\u7968/\u9ad8\u94c1\u7968', '\u9152\u5e97\u9884\u8ba2\u51ed\u8bc1\u6253\u5370\u7248', '\u4fdd\u6e29\u6c34\u58f6',
+                '\u7535\u5b50\u4ea7\u54c1 (\u5145\u7535\u5b9d/\u6570\u636e\u7ebf)', '\u591a\u63d2\u5934\u8f6c\u6362\u5668',
+                '\u65e5\u5e38\u8863\u7269 (8\u5929\u6362\u6d17)', '\u96e8\u4f1e/\u4fbf\u643a\u96e8\u8863',
+                '\u8212\u9002\u8fd0\u52a8\u978b (\u65c5\u6e38\u7528)', '\u6cf3\u8863 (\u9152\u5e97\u6cf3\u6c60/\u6e29\u6cc9)'
+            ]},
+            { key: 'altitude', name: '\ud83c\udfd4\ufe0f \u9ad8\u53cd\u836f\u54c1\u5305', items: [
+                '\u7ea2\u666f\u5929 (\u63d0\u524d 7 \u5929\u5f00\u59cb\u670d\u7528)', '\u4fbf\u643a\u5f0f\u6c27\u6c14\u74f6 (\u5efa\u8bae\u5907 5+ \u7f50)',
+                '\u6655\u8f66\u836f / \u9632\u6655\u8d34', '\u8461\u8404\u7cd6\u6db2 (\u7f13\u89e3\u9ad8\u53cd\u5934\u6655)',
+                '\u80a0\u80c3\u836f (\u6b62\u6cfb/\u80c3\u836f)', '\u611f\u5192\u836f + \u9000\u70e7\u836f',
+                '\u521b\u53ef\u8d34 + \u6d88\u6bd2\u6e7f\u5dfe', '\u9ad8\u8840\u538b/\u5fc3\u810f\u75c5\u5e38\u5907\u836f (\u957f\u8f88)'
+            ]},
+            { key: 'gifts', name: '\ud83c\udf81 \u4f34\u624b\u793c\u51c6\u5907', items: [
+                '\u4f34\u624b\u793c\u793c\u76d2 (19 \u4efd)', '\u6b22\u8fce\u5361\u7247 (\u5b9a\u5236)', '\u884c\u7a0b\u5355\u6253\u5370\u7248',
+                '\u9c9c\u82b1\u997c / \u666e\u6d31\u8336', '\u9632\u6652\u971c + \u58a8\u955c (\u653e\u5165Welcome Bag)',
+                '\u4fbf\u643a\u6c27\u6c14\u74f6 (\u653e\u5165Welcome Bag)', '\u7eff\u690d\u51b0\u7bb1\u8d34/\u7eaa\u5ff5\u54c1'
+            ]},
+            { key: 'docs', name: '\ud83d\udcc4 \u91cd\u8981\u6587\u6863\u8bc1\u4ef6', items: [
+                '\u6240\u6709\u4eb2\u53cb\u8eab\u4efd\u8bc1\u590d\u5370\u4ef6', '\u7ed3\u5a5a\u8bc1\u539f\u4ef6 + \u590d\u5370\u4ef6',
+                '\u9152\u5e97\u9884\u8ba2\u5408\u540c\u6253\u5370\u4ef6', '\u5a5a\u7b56\u516c\u53f8\u5408\u540c\u6253\u5370\u4ef6',
+                '\u5e94\u6025\u8054\u7cfb\u4eba\u540d\u5355 (\u542b\u533b\u751f/\u5bb6\u4eba)', '\u4eb2\u53cb\u5065\u5eb7\u72b6\u51b5\u8bb0\u5f55 (\u9ad8\u53cd\u53f2/\u8fc7\u654f)',
+                '\u4fdd\u9669\u5355\u636e (\u65c5\u6e38/\u533b\u7597)'
+            ]}
+        ];
+
+        function loadPackList() {
+            var saved = localStorage.getItem('wedding_packlist');
+            if (saved) { try { return JSON.parse(saved); } catch(e) {} }
+            // Initialize from default categories
+            var data = { categories: {}, customItems: {} };
+            PACKLIST_CATEGORIES.forEach(function(cat) {
+                data.categories[cat.key] = cat.items.map(function(name) {
+                    return { name: name, packed: false, isCustom: false };
+                });
+            });
+            return data;
+        }
+        function savePackList() { localStorage.setItem('wedding_packlist', JSON.stringify(packData)); }
+        var packData = loadPackList();
+
+        function renderPackList() {
+            var container = document.getElementById('packlist-container');
+            if (!container) return;
+            container.innerHTML = '';
+            var totalItems = 0, packedItems = 0;
+            PACKLIST_CATEGORIES.forEach(function(cat) {
+                var items = packData.categories[cat.key] || [];
+                if (!packData.categories[cat.key]) {
+                    packData.categories[cat.key] = cat.items.map(function(n) { return { name: n, packed: false, isCustom: false }; });
+                    items = packData.categories[cat.key];
+                }
+                var done = items.filter(function(i) { return i.packed; }).length;
+                totalItems += items.length;
+                packedItems += done;
+                var pct = items.length ? Math.round(done / items.length * 100) : 0;
+                var card = document.createElement('div');
+                card.className = 'glass-card';
+                card.style.cssText = 'margin-bottom: 16px; padding: 20px;';
+                var itemsHtml = items.map(function(it, idx) {
+                    return '<label style="display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);">' +
+                        '<input type="checkbox"' + (it.packed ? ' checked' : '') + ' onchange="togglePackItem(\'' + cat.key + '\',' + idx + ',this.checked)" style="accent-color:var(--accent-gold);width:16px;height:16px;cursor:pointer;">' +
+                        '<span style="flex:1;font-size:0.9rem;color:' + (it.packed ? 'rgba(255,255,255,0.4)' : 'var(--text-primary)') + ';text-decoration:' + (it.packed ? 'line-through' : 'none') + ';">' + it.name + '</span>' +
+                        (it.isCustom ? '<button onclick="event.preventDefault();removePackItem(\'' + cat.key + '\',' + idx + ')" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:0.85rem;">\u2715</button>' : '') +
+                    '</label>';
+                }).join('');
+                card.innerHTML =
+                    '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">' +
+                        '<span style="font-weight:600;color:var(--accent-light);font-size:1rem;flex:1;">' + cat.name + '</span>' +
+                        '<span style="font-size:0.82rem;color:var(--accent-gold);">' + done + '/' + items.length + '</span>' +
+                    '</div>' +
+                    '<div class="dash-progress" style="margin-bottom:12px;"><div class="dash-progress-fill" style="width:' + pct + '%;' + (pct === 100 ? 'background:linear-gradient(90deg,#34d399,#6ee7b7);' : '') + '"></div></div>' +
+                    '<div>' + itemsHtml + '</div>' +
+                    '<div style="display:flex;gap:8px;margin-top:12px;">' +
+                        '<input type="text" class="invite-input" id="pack-add-' + cat.key + '" placeholder="\u6dfb\u52a0\u81ea\u5b9a\u4e49\u9879..." style="flex:1;padding:6px 10px;font-size:0.85rem;" onkeypress="if(event.key===\'Enter\')addPackItem(\'' + cat.key + '\')">' +
+                        '<button class="btn-outline" style="padding:6px 14px;font-size:0.82rem;" onclick="addPackItem(\'' + cat.key + '\')">+ \u6dfb\u52a0</button>' +
+                    '</div>';
+                container.appendChild(card);
+            });
+            // Header summary
+            var summary = document.getElementById('pack-summary');
+            if (summary) {
+                var allPct = totalItems ? Math.round(packedItems / totalItems * 100) : 0;
+                summary.innerHTML = '<div style="font-size:1.6rem;font-weight:300;font-family:\'Cormorant Garamond\',serif;color:var(--accent-gold);line-height:1;">' + packedItems + ' / ' + totalItems + '</div>' +
+                    '<div style="font-size:0.82rem;color:var(--text-secondary);margin:6px 0 10px;">\u5df2\u51c6\u5907 ' + allPct + '%</div>' +
+                    '<div class="dash-progress"><div class="dash-progress-fill" style="width:' + allPct + '%;' + (allPct === 100 ? 'background:linear-gradient(90deg,#34d399,#6ee7b7);' : '') + '"></div></div>';
+            }
+        }
+
+        function togglePackItem(catKey, idx, checked) {
+            packData.categories[catKey][idx].packed = checked;
+            savePackList();
+            renderPackList();
+        }
+
+        function addPackItem(catKey) {
+            var input = document.getElementById('pack-add-' + catKey);
+            var val = input.value.trim();
+            if (!val) return;
+            packData.categories[catKey].push({ name: val, packed: false, isCustom: true });
+            savePackList();
+            renderPackList();
+        }
+
+        function removePackItem(catKey, idx) {
+            packData.categories[catKey].splice(idx, 1);
+            savePackList();
+            renderPackList();
+        }
+
+        function exportPackListCSV() {
+            var rows = '\u5206\u7c7b,\u7269\u54c1,\u72b6\u6001\n';
+            PACKLIST_CATEGORIES.forEach(function(cat) {
+                (packData.categories[cat.key] || []).forEach(function(it) {
+                    rows += '"' + cat.name.replace(/"/g, '""') + '","' + it.name.replace(/"/g, '""') + '",' + (it.packed ? '\u5df2\u51c6\u5907' : '\u5f85\u51c6\u5907') + '\n';
+                });
+            });
+            var blob = new Blob(['\ufeff' + rows], { type: 'text/csv;charset=utf-8;' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = '\u5907\u5a5a\u7269\u54c1\u6e05\u5355_' + new Date().toISOString().slice(0, 10) + '.csv';
+            link.click();
+        }
+
+        function resetPackList() {
+            if (!confirm('\u91cd\u7f6e\u4f1a\u6e05\u9664\u6240\u6709\u81ea\u5b9a\u4e49\u9879\u5e76\u53d6\u6d88\u6240\u6709\u6253\u52fe\uff0c\u786e\u5b9a\u5417\uff1f')) return;
+            localStorage.removeItem('wedding_packlist');
+            packData = loadPackList();
+            renderPackList();
+        }
+
+        renderPackList();
+
+        // ====== Hero Sparkle (Cold Fireworks) ======
+        (function() {
+            var layer = document.getElementById('sparkle-layer');
+            if (!layer) return;
+            var variants = ['', 's2', 's3'];
+            for (var i = 0; i < 28; i++) {
+                var s = document.createElement('div');
+                s.className = 'sparkle ' + variants[i % 3];
+                s.style.left = (Math.random() * 100) + '%';
+                s.style.top = (Math.random() * 30) + '%';
+                s.style.animationDelay = (Math.random() * 4) + 's';
+                layer.appendChild(s);
+            }
+        })();
     </script>
 </body>
 </html>
