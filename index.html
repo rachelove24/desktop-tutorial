@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rachel — 个人项目索引</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --fg: #1a1a18; --muted: #6b6b63;
+    --card: #ffffff; --border: #e5e3dd; --accent: #b0552f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a; --fg: #ececea; --muted: #9a9a94;
+      --card: #1f1f24; --border: #32323a; --accent: #e08a5c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 4rem 1.5rem; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.9rem; letter-spacing: -0.02em; margin: 0 0 .4rem; }
+  .sub { color: var(--muted); margin: 0 0 2.5rem; }
+  a.card {
+    display: block; padding: 1.4rem 1.5rem; margin-bottom: 1rem;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
+  }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card h2 { margin: 0 0 .3rem; font-size: 1.1rem; color: var(--accent); }
+  .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>个人项目索引</h1>
+  <p class="sub">Rachel · 部署于 GitHub Pages</p>
+
+  <a class="card" href="cash-allocation.html">
+    <h2>现金配置方案</h2>
+    <p>SGD vs USD vs 新加坡房地产 —— 30 年历史回测与配置建议</p>
+  </a>
+
+  <a class="card" href="lijiang-wedding.html">
+    <h2>目的地婚礼策划</h2>
+    <p>丽江 × 大理 —— 8 天行程、预算测算与执行清单</p>
+  </a>
+
+  <footer>源码：<a href="https://github.com/rachelove24/desktop-tutorial" style="color:var(--accent)">rachelove24/desktop-tutorial</a></footer>
+</div>
+</body>
+</html>
